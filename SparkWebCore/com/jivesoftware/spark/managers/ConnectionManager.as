@@ -20,6 +20,7 @@ package com.jivesoftware.spark.managers
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
+    import flash.system.Security;
 	import flash.utils.Timer;
 	
 	import org.jivesoftware.xiff.core.EscapedJID;
@@ -78,18 +79,15 @@ package com.jivesoftware.spark.managers
 		{
 			con.username = username;
 			con.password = password;
-			con.domain = domain;
-			con.resource = resource;
-			if (server)
-				con.server = server;
+            con.server = server || '';
 			
 			con.removeEventListener("outgoingData", packetSent); 
 			con.addEventListener("outgoingData", packetSent);
-			con.connect( "terminatedStandard");
-				
 			con.removeEventListener(LoginEvent.LOGIN, getMe);
 			con.addEventListener(LoginEvent.LOGIN, getMe);
-			
+
+			con.connect( "standard");
+
 			if(keepAliveTimer)
 				keepAliveTimer.stop();
 			keepAliveTimer = new Timer(15000);

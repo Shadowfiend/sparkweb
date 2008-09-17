@@ -57,7 +57,7 @@
  			import com.jivesoftware.spark.ChatRoom;
  			import org.jivesoftware.xiff.data.Message;
  			import com.jivesoftware.spark.events.NotifyEvent;
- 			import org.hasseg.externalMouseWheel.ExternalMouseWheelSupport;
+            //import org.hasseg.externalMouseWheel.ExternalMouseWheelSupport;
  			import org.jivesoftware.xiff.events.LoginEvent;
  			import mx.events.CollectionEvent;
  			import org.jivesoftware.xiff.events.RosterEvent;
@@ -80,7 +80,7 @@
  			
  			private var connectionManager:ConnectionManager;
  			
- 			private static var _mwSupport:ExternalMouseWheelSupport = ExternalMouseWheelSupport.instance;
+            //private static var _mwSupport:ExternalMouseWheelSupport = ExternalMouseWheelSupport.instance;
  			
  			private static const layoutDebug:Boolean = false;
  			[Bindable]
@@ -90,7 +90,7 @@
 			
 			public function presetup():void 
 			{
-				ScrollWheelManager.registrationFunction = _mwSupport.registerObject;
+                //ScrollWheelManager.registrationFunction = _mwSupport.registerObject;
 				SparkManager.configProvider = function (key:String):String { 
 					if(!externalConfig)
 					{
@@ -247,11 +247,6 @@
 				loginDialog.visible = true;
 				loginDialog.userNameField.text = username;
 				loginDialog.passwordField.text = password;
-				for each(var item:* in loginDialog.serverBox.dataProvider)
-				{
-					if(item == serverURL)
-						loginDialog.serverBox.selectedItem = item;
-				}
 			}
 			
 			public static function get rootContainer():DisplayObject

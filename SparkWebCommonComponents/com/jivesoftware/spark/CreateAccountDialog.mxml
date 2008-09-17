@@ -41,11 +41,10 @@
 		import org.jivesoftware.xiff.data.IQ;
 		import org.jivesoftware.xiff.events.ConnectionSuccessEvent;
 		import org.jivesoftware.xiff.core.XMPPSocketConnection;
-		import org.jivesoftware.xiff.core.XMPPConnection;
 		import com.jivesoftware.spark.managers.*;
 		import mx.managers.FocusManager;
 	
-		private var con:XMPPConnection = new XMPPConnection();
+		private var con:XMPPSocketConnection = new XMPPSocketConnection();
 		private var serverURL:String;	
 		private var username:String;
 		private var password:String;
@@ -87,7 +86,7 @@
 			
 			// Create Account
 			con.server = serverURL;
-			con.connect("terminatedFlash");
+			con.connect("standard");
 		}
 		
 		public function focusUsername():void {

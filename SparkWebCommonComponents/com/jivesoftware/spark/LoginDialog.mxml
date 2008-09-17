@@ -75,7 +75,7 @@
 		private var _showCreateAccount:Boolean = true;
 
 		private function loginToServer():void {
-			if(userNameField.length == 0 || passwordField.length == 0 || serverBox.text == "") 
+			if(userNameField.length == 0 || passwordField.length == 0) 
 			{
 				showErrorText(Localizator.getText('message.incomplete.fields'));
 				return;
@@ -85,7 +85,7 @@
 				
 			var username:String = userNameField.text;
 			var passwordStr:String = passwordField.text;
-			serverURL = serverBox.text;
+			serverURL = SparkManager.getConfigValueForKey("server");
 			if(serverURL.indexOf(":") > -1 && connectionManager.connection is XMPPBOSHConnection)
 			{
 				var parts:Array = serverURL.split(":");
@@ -125,12 +125,7 @@
 				policyFileURL = configVal;
 			configVal = SparkManager.getConfigValueForKey("autologin");
 			if(configVal == "true")
-			{
-				configVal = SparkManager.getConfigValueForKey("server");
-				if(configVal)
-					serverBox.text = configVal;
 				loginToServer();
-			}
 			else
 				focusManager.setFocus(userNameField);
 		}
@@ -240,9 +235,6 @@
         		<mx:GridItem width="150" colSpan="2">
         			 <mx:Label color="white" filters="{dropShadowFilters}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
         		</mx:GridItem>
-        		<mx:GridItem width="150">
-        			 <mx:Label color="white" filters="{dropShadowFilters}" text="{Localizator.getText('label.server')}" styleName="formLabel" />
-        		</mx:GridItem>
         		<mx:GridItem paddingLeft="20" id="passwordLabelItem"> 
         			   <mx:Label id="passwordLabel" color="white" filters="{dropShadowFilters}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
         		</mx:GridItem>
@@ -254,9 +246,6 @@
         		</mx:GridItem>
         		<mx:GridItem paddingLeft="2" width="10">
         			 <mx:Label fontSize="11" paddingLeft="1" color="#DDDDDD" width="20" text="@" />
-        		</mx:GridItem>
-        		<mx:GridItem paddingTop="-1">
-        			<mx:ComboBox id="serverBox" fontSize="11" focusRoundedCorners="br, tr" paddingLeft="-2" borderColor="gray" fontWeight="normal" width="100%" selectedIndex="0" editable="true" dataProvider="{servers}" />
         		</mx:GridItem>
         		<mx:GridItem paddingLeft="20" id="passwordFieldItem">
         			<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black"  displayAsPassword="true" keyUp="handleKeyUp(event)" />
