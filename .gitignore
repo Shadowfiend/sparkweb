@@ -1,4 +1,4 @@
-SparkWeb/bin-debug/
-SparkWebCommonComponents/bin/
-SparkWebCore/bin/
-xiff/bin/
+SparkWeb/bin-debug
+SparkWebCommonComponents/bin
+SparkWebCore/bin
+xiff/bin
