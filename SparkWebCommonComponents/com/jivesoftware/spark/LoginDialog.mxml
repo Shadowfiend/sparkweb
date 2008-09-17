@@ -245,7 +245,8 @@
         	      <mx:TextInput fontSize="11" width="100%" id="userNameField" color="black" paddingRight="0"  />
         		</mx:GridItem>
         		<mx:GridItem paddingLeft="2" width="10">
-        			 <mx:Label fontSize="11" paddingLeft="1" color="#DDDDDD" width="20" text="@" />
+        			 <mx:Spacer/>
+        			 	
         		</mx:GridItem>
         		<mx:GridItem paddingLeft="20" id="passwordFieldItem">
         			<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black"  displayAsPassword="true" keyUp="handleKeyUp(event)" />
