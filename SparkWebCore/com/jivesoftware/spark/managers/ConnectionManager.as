@@ -79,7 +79,7 @@ package com.jivesoftware.spark.managers
 		{
 			con.username = username;
 			con.password = password;
-            con.server = server || '';
+            con.domain = domain || '';
 			
 			con.removeEventListener("outgoingData", packetSent); 
 			con.addEventListener("outgoingData", packetSent);
