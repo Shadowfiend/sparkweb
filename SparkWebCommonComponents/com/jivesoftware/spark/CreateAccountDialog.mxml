@@ -203,15 +203,15 @@
 		      <mx:TextInput fontSize="11" width="100%" id="userNameField" color="black" paddingRight="0"  />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20">
-				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black"  displayAsPassword="true" />
+				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black" displayAsPassword="true" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
 		<mx:GridRow>
-			<mx:GridItem width="150">
+			<mx:GridItem width="150" paddingTop="8">
 			  	<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
 			</mx:GridItem>
-			<mx:GridItem paddingLeft="20">
+			<mx:GridItem paddingLeft="20" paddingTop="8">
 				<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.confirm')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
