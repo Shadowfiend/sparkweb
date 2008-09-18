@@ -51,31 +51,20 @@
 		[Bindable]
 		private var servers:Array = [];
 		
-		private static const dropShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0.0, 1.0, 6.0);
-		
 		[Embed(source='/assets/images/sparkweb.png')]
 		private static const defaultTitleImage:Class;
 		
-		
 		private var _titleImage:Object = defaultTitleImage;
 		
-				public function set titleImage(image:Object):void
-		{
-			_titleImage = (image != "" ? image : null);
-		}		
-
-		[Bindable]
-		public function get titleImage():Object 
-		{
-			return _titleImage;
-		}
+		private static const dropShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0.0, 1.0, 6.0);
+		
+		private var _showLogin:Boolean = true;
 		
 		private function connect():void 
 		{
 			username = userNameField.text;
 			password = passwordField.text;
-
-			serverURL = SparkManager.getConfigValueForKey("server");
+			serverURL = serverBox.text;
 			
 			var confirmPassword:String = confirmPasswordField.text;
 			if(password != confirmPassword)
@@ -84,7 +73,7 @@
 				return;
 			}
 			
-			if(userNameField.length == 0 || passwordField.length == 0) 
+			if(userNameField.length == 0 || passwordField.length == 0 || serverBox.text == "") 
 			{
 				showErrorText(Localizator.getText('message.incomplete.fields'));
 				return;
@@ -167,13 +156,35 @@
 			}
 		}
 		
+		public function set titleImage(image:Object):void
+		{
+			_titleImage = (image != "" ? image : null);
+		}		
+
+		[Bindable]
+		public function get titleImage():Object 
+		{
+			return _titleImage;
+		}
+		
+		
+		public function set showLogin(setting:Boolean):void
+		{
+			_showLogin = setting;
+		}		
+
+		[Bindable]
+		public function get showLogin():Boolean 
+		{
+			return _showLogin;
+		}
 		
 	]]>
 </mx:Script>
 	<mx:HBox width="100%" paddingLeft="20" paddingTop="10" paddingRight="20">
 		<mx:Image source="{titleImage}" visible="{titleImage != null}"/>
 		<mx:Spacer width="100%" />
-		<mx:Label paddingTop="13" color="white" fontSize="24" text="{Localizator.getText('message.create.account')}" filters="{[dropShadow]}" styleName="formLabel" />
+		<mx:LinkButton alpha="0.5" selectionColor="#AAAAAA" color="white" rollOverColor="#888888" textRollOverColor="white" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
 	</mx:HBox>
 	
 	<mx:Grid id="grid" verticalGap="1" horizontalGap="0" width="100%" height="100%" paddingLeft="20" paddingRight="20" paddingTop="17" paddingBottom="15" styleName="canvas"  >
@@ -181,6 +192,9 @@
 		<mx:GridRow>
 			<mx:GridItem width="150" colSpan="2">
 				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
+			</mx:GridItem>
+			<mx:GridItem width="150">
+				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.server')}" styleName="formLabel" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20"> 
 				   <mx:Label id="passwordLabel" color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
@@ -193,6 +207,9 @@
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="2" width="10">
 				 <mx:Label fontSize="11" paddingLeft="1" color="#DDDDDD" width="20" text="@" />
+			</mx:GridItem>
+			<mx:GridItem paddingTop="-1">
+				<mx:ComboBox id="serverBox" fontSize="11" focusRoundedCorners="br, tr" paddingLeft="-2" borderColor="gray" fontWeight="normal" width="100%" selectedIndex="0" editable="true" dataProvider="{servers}" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20">
 				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black"  displayAsPassword="true" />
