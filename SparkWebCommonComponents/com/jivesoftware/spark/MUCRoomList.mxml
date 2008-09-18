@@ -44,7 +44,8 @@
 			public function set jid(j:UnescapedJID):void 
 			{
 				_jid = j;
-				label = j.toString();
+				//label = j.toString();
+				label = SparkManager.getConfigValueForKey("roomServer");
 			}
 			
 			protected function setup():void
