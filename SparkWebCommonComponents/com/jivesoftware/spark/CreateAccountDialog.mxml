@@ -24,13 +24,6 @@
 	xmlns:mx="http://www.adobe.com/2006/mxml"
 	creationComplete="loadServers()"
 	styleName="roundedPanel">
-<mx:Style>
-	.formLabel {
-		font-size: 12;
-		color: black;
-		font-weight:bold;
-	}
-</mx:Style>
 <mx:Script>
 	<![CDATA[
 		import org.jivesoftware.xiff.events.DisconnectionEvent;
@@ -181,48 +174,48 @@
 		
 	]]>
 </mx:Script>
-	<mx:HBox width="100%" paddingLeft="20" paddingTop="10" paddingRight="20">
-		<mx:Image source="{titleImage}" visible="{titleImage != null}"/>
-		<mx:Spacer width="100%" />
-		<mx:LinkButton alpha="0.5" selectionColor="#AAAAAA" color="white" rollOverColor="#888888" textRollOverColor="white" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
+	<mx:HBox styleName="titleBar">
+		<mx:Image source="{titleImage}" visible="{titleImage != null}" />
+		<mx:Spacer />
+		<mx:LinkButton styleName="gotoLogin" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
 	</mx:HBox>
 	
-	<mx:Grid id="grid" verticalGap="1" horizontalGap="0" width="100%" height="100%" paddingLeft="20" paddingRight="20" paddingTop="17" paddingBottom="15" styleName="canvas"  >
+	<mx:Grid id="grid" verticalGap="1" horizontalGap="0" styleName="registerGrid"  >
         
 		<mx:GridRow>
-			<mx:GridItem width="150">
+			<mx:GridItem styleName="userLabelGrid">
 				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
 			</mx:GridItem>
-			<mx:GridItem paddingLeft="20">
+			<mx:GridItem styleName="emailLabelGrid">
 					<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
 		<mx:GridRow>
-			<mx:GridItem width="118" paddingRight="0">
-		      <mx:TextInput fontSize="11" width="100%" id="userNameField" color="black" paddingRight="0"  />
+			<mx:GridItem styleName="userFieldGrid">
+		      <mx:TextInput styleName="userTextInput" id="userNameField" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20">
-				<mx:TextInput fontSize="11" width="100%" id="emailField" color="black" />
+				<mx:TextInput styleName="emailTextGrid" id="emailField" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
 		<mx:GridRow>
-			<mx:GridItem width="150" paddingTop="8">
+			<mx:GridItem  styleName="userLabelGrid">
 				<mx:Label id="passwordLabel" color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
 			</mx:GridItem>
-			<mx:GridItem paddingLeft="20" paddingTop="8">
+			<mx:GridItem styleName="passwordLabelGrid">
 				<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.confirm')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
 		<mx:GridRow>
-			<mx:GridItem width="118" paddingRight="0">
-				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black" displayAsPassword="true" />
+			<mx:GridItem styleName="userFieldGrid">
+				<mx:TextInput styleName="passwordInput" id="passwordField" displayAsPassword="true" />
 			</mx:GridItem>
 			
 			<mx:GridItem paddingLeft="20">
-				<mx:TextInput fontSize="11" width="100%" id="confirmPasswordField" color="black"  displayAsPassword="true" keyUp="handleKeyUp(event)" />
+				<mx:TextInput styleName="passwordInput" id="confirmPasswordField" displayAsPassword="true" keyUp="handleKeyUp(event)" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
@@ -233,7 +226,7 @@
 		</mx:GridRow>
 		<mx:GridRow paddingTop="8" width="100%">
 		  <mx:GridItem />
-			<mx:GridItem id="loginItem" horizontalAlign="right" textAlign="right">
+			<mx:GridItem id="loginItem" horizontalAlign="right" width="150">
 				<mx:Button id="cancelButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="Application.application.showLogin();" />
 				<mx:Button id="createAccountButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
 			</mx:GridItem>
