@@ -1,4 +1,3 @@
-SparkWeb/bin-debug
-SparkWebCommonComponents/bin
-SparkWebCore/bin
-xiff/bin
+bin
+bin-debug
+.*Properties
