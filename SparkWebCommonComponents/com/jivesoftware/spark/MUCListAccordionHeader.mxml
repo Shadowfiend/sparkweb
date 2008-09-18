@@ -34,6 +34,8 @@
 		
 		[Bindable]
 		private var roomList:MUCRoomList;
+		
+		private var _globalJID:UnescapedJID;
 
 		public function setup():void 
 		{
@@ -45,6 +47,9 @@
 			my_cm.customItems.push(removeItem);
 
 			contextMenu = my_cm;
+			label = SparkManager.getConfigValueForKey("siteName");
+	
+			
 		}
 	
 		override public function set data(value:Object):void
@@ -58,7 +63,7 @@
 		
 		public function get jid():UnescapedJID
 		{
-			return new UnescapedJID(label);
+			return new UnescapedJID(SparkManager.getConfigValueForKey("roomServer"));
 		}
 		
 		private function removeServerBookmark(event:ContextMenuEvent):void 

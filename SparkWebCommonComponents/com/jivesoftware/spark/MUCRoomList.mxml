@@ -109,6 +109,11 @@
 			
 		]]>
 	</mx:Script>
+	<mx:HBox right="4" horizontalGap="0" verticalAlign="middle" visible="{rooms.length > 0}">
+		<mx:LinkButton id="searchButton2" click="showRoomSearch(); event.stopImmediatePropagation();" toolTip="" width="24" height="24" icon="@Embed(source='/assets/images/tiny-search-white.png')"/>
+		<mx:LinkButton id="reloadButton" click="populate(true); event.stopImmediatePropagation();" toolTip="{Localizator.getText('label.load.rooms')}" width="28" height="24" icon="@Embed(source='/assets/images/temp_reload_server.png')"/>
+		<mx:LinkButton id="createButton" click="ContactListContainer.conferenceList.createRoom(label); event.stopImmediatePropagation();" toolTip="Create Room" width="22" height="24" icon="@Embed(source='/assets/images/temp_create_room_button.png')"/>
+	</mx:HBox>
 	<mx:TextArea paddingTop="3" backgroundColor="#CCCCCC" borderStyle="none" height="{rooms.length == 0 ? 25 : 0}" editable="false" width="100%" textAlign="center" focusEnabled="false" selectable="false" color="black" maxHeight="{rooms.length == 0 ? NaN : 0}" visible="{rooms.length == 0}" text="{Localizator.getText('label.no.room.bookmarks')}" />
 	<mx:HBox backgroundColor="#CCCCCC" paddingBottom="3" paddingTop="3" paddingLeft="3" paddingRight="3" horizontalAlign="center" verticalAlign="middle" verticalGap="0" width="100%" maxHeight="{rooms.length == 0 ? NaN : 0}" visible="{rooms.length == 0}" id="placeholder">
 		<mx:VBox>

@@ -18,9 +18,8 @@
 -->
 
 
-<mx:Accordion xmlns:mx="http://www.adobe.com/2006/mxml"
-			  color="white" 
-			  headerRenderer="com.jivesoftware.spark.MUCListAccordionHeader"
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"
+			  color="white"
 			  borderStyle="none"
 			  cornerRadius="5" 
 			  backgroundAlpha="0.0" 
@@ -50,6 +49,12 @@
 				
 				public function init():void
 				{
+					var jid:UnescapedJID = new UnescapedJID(SparkManager.getConfigValueForKey("roomServer"));
+					MUCManager.manager.findConferenceService(jid, function(conferenceJID:UnescapedJID):void {
+						
+						
+						addConferenceServer(conferenceJID);
+					});
 		 			//list.addEventListener(IndexChangedEvent.CHANGE, function(evt:IndexChangedEvent):void { (evt.relatedObject as MUCRoomList).populate(false); });
 				}
 				
@@ -149,4 +154,4 @@
 				}
 			]]>
 		</mx:Script>
-</mx:Accordion>	
+</mx:Panel>	

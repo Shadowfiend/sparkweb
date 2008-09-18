@@ -103,12 +103,7 @@
 
 			loginButton.enabled = false;
 			
-			connectionManager.connection.addEventListener(ConnectionSuccessEvent.CONNECT_SUCCESS, function(evt:ConnectionSuccessEvent):void {
-				var so:SharedObject = SharedObject.getLocal("savedData");
-	 			var temp:* = new UniqueingQueue(savedServers);
-	 			temp.unshift(serverURL);
-	 			servers = temp;
-			});
+
 			connectionManager.login(username, passwordStr, serverURL);
 		}
 		

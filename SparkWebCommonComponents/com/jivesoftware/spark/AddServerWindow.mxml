@@ -54,7 +54,7 @@
 					jid = conferenceJID;
 					SparkManager.bookmarkManager.addGroupChatBookmark(new GroupChatBookmark(jid.toString(), jid.escaped));
 					ContactListContainer.conferenceList.addConferenceServer(jid);
-					(ContactListContainer.conferenceList.selectedChild as MUCRoomList).populate(false);
+					//(ContactListContainer.conferenceList.selectedChild as MUCRoomList).populate(false);
 					var so:SharedObject = SharedObject.getLocal("savedData");
 					if(!so.data.mucServers)
 						so.data.mucServers = new UniqueingQueue();

@@ -53,11 +53,29 @@
 		
 		private static const dropShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0.0, 1.0, 6.0);
 		
+		[Embed(source='/assets/images/sparkweb.png')]
+		private static const defaultTitleImage:Class;
+		
+		
+		private var _titleImage:Object = defaultTitleImage;
+		
+				public function set titleImage(image:Object):void
+		{
+			_titleImage = (image != "" ? image : null);
+		}		
+
+		[Bindable]
+		public function get titleImage():Object 
+		{
+			return _titleImage;
+		}
+		
 		private function connect():void 
 		{
 			username = userNameField.text;
 			password = passwordField.text;
-			serverURL = serverBox.text;
+
+			serverURL = SparkManager.getConfigValueForKey("server");
 			
 			var confirmPassword:String = confirmPasswordField.text;
 			if(password != confirmPassword)
@@ -66,7 +84,7 @@
 				return;
 			}
 			
-			if(userNameField.length == 0 || passwordField.length == 0 || serverBox.text == "") 
+			if(userNameField.length == 0 || passwordField.length == 0) 
 			{
 				showErrorText(Localizator.getText('message.incomplete.fields'));
 				return;
@@ -148,10 +166,12 @@
 				connect();
 			}
 		}
+		
+		
 	]]>
 </mx:Script>
 	<mx:HBox width="100%" paddingLeft="20" paddingTop="10" paddingRight="20">
-		<mx:Image source="@Embed(source='/assets/images/sparkweb.png')"/>
+		<mx:Image source="{titleImage}" visible="{titleImage != null}"/>
 		<mx:Spacer width="100%" />
 		<mx:Label paddingTop="13" color="white" fontSize="24" text="{Localizator.getText('message.create.account')}" filters="{[dropShadow]}" styleName="formLabel" />
 	</mx:HBox>
@@ -161,9 +181,6 @@
 		<mx:GridRow>
 			<mx:GridItem width="150" colSpan="2">
 				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
-			</mx:GridItem>
-			<mx:GridItem width="150">
-				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.server')}" styleName="formLabel" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20"> 
 				   <mx:Label id="passwordLabel" color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
@@ -176,9 +193,6 @@
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="2" width="10">
 				 <mx:Label fontSize="11" paddingLeft="1" color="#DDDDDD" width="20" text="@" />
-			</mx:GridItem>
-			<mx:GridItem paddingTop="-1">
-				<mx:ComboBox id="serverBox" fontSize="11" focusRoundedCorners="br, tr" paddingLeft="-2" borderColor="gray" fontWeight="normal" width="100%" selectedIndex="0" editable="true" dataProvider="{servers}" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20">
 				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black"  displayAsPassword="true" />
