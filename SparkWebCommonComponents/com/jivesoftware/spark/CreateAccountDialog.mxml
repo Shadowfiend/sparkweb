@@ -193,8 +193,8 @@
 			<mx:GridItem width="150">
 				 <mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
 			</mx:GridItem>
-			<mx:GridItem paddingLeft="20"> 
-				   <mx:Label id="passwordLabel" color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
+			<mx:GridItem paddingLeft="20">
+					<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
@@ -203,13 +203,13 @@
 		      <mx:TextInput fontSize="11" width="100%" id="userNameField" color="black" paddingRight="0"  />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20">
-				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black" displayAsPassword="true" />
+				<mx:TextInput fontSize="11" width="100%" id="emailField" color="black" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
 		<mx:GridRow>
 			<mx:GridItem width="150" paddingTop="8">
-			  	<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
+				<mx:Label id="passwordLabel" color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
 			</mx:GridItem>
 			<mx:GridItem paddingLeft="20" paddingTop="8">
 				<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.confirm')}" styleName="formLabel" />
@@ -218,7 +218,7 @@
 		
 		<mx:GridRow>
 			<mx:GridItem width="118" paddingRight="0">
-			  <mx:TextInput fontSize="11" width="100%" id="emailField" color="black" />
+				<mx:TextInput fontSize="11" width="100%" id="passwordField" color="black" displayAsPassword="true" />
 			</mx:GridItem>
 			
 			<mx:GridItem paddingLeft="20">
@@ -226,14 +226,16 @@
 			</mx:GridItem>
 		</mx:GridRow>
 		
-		       	
-		<mx:GridRow paddingTop="30">
-			<mx:GridItem colSpan="3">
+		<mx:GridRow paddingTop="8">
+			<mx:GridItem colSpan="2">
 				<mx:Label fontSize="12" fontWeight="bold" filters="{[dropShadow]}" id="errorLabel" color="#FF9B26" />
 			</mx:GridItem>
-			<mx:GridItem id="loginItem" horizontalAlign="right">
+		</mx:GridRow>
+		<mx:GridRow paddingTop="8" width="100%">
+		  <mx:GridItem />
+			<mx:GridItem id="loginItem" horizontalAlign="right" textAlign="right">
 				<mx:Button id="cancelButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="Application.application.showLogin();" />
-		<mx:Button id="createAccountButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
+				<mx:Button id="createAccountButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
 			</mx:GridItem>
 		</mx:GridRow>
         	
