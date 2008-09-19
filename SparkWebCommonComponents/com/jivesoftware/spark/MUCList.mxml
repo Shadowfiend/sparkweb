@@ -142,9 +142,9 @@
 	 				}
 	 			}
 				
-				public function createRoom(server:String):void
+				public function createRoom(server:String, callback:Function = null):void
 				{
-					CreateRoomWindow.showCreateRoomWindow(server);
+					CreateRoomWindow.showCreateRoomWindow(server, callback);
 				}
 				
 				public function getServerList(conferenceServerAddress:String):MUCRoomList

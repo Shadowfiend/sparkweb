@@ -32,6 +32,8 @@
 	</mx:Style>
     <mx:Script>
         <![CDATA[
+        	import org.jivesoftware.xiff.core.EscapedJID;
+        	import org.jivesoftware.xiff.events.RoomEvent;
         	import org.jivesoftware.xiff.core.UnescapedJID;
         	import mx.core.Application;
         	import com.jivesoftware.spark.ContactListContainer;
@@ -50,6 +52,15 @@
             
             [Bindable]
 			private var dropShadowFilters:Array = [new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)];
+			
+			private var jid:UnescapedJID;
+			
+			private var _callback:Function;
+			
+			public function set callback(callback:Function) :void
+			{
+				this._callback = callback;
+			}
            
             // Event handler for the OK button.
             private function createRoom():void {
@@ -62,7 +73,14 @@
             	
                 var roomName:String = nameField.text;
                 var room:Room = new Room(SparkManager.connectionManager.connection);
+                room.addEventListener(RoomEvent.ROOM_JOIN, handleJoin);
+                //TODO: Add listeners for errors such as room is full or the join fails
+                
+                
                 room.roomJID = new UnescapedJID(roomName + "@" + conferenceServer);
+                jid = room.roomJID;
+                
+                
                 
                 if (configType.selectedValue == "custom")
                 {
@@ -78,10 +96,12 @@
                 //TODO: encapsulation violation
                 var serverList:MUCRoomList = ContactListContainer.conferenceList.getServerList(conferenceServer);
                 serverList.addItems([{jid:room.roomJID, name:room.roomName}]);
-                close();
+               
             }
             
-            private function close():void {
+            private function close(created:Boolean = false):void {
+            	if(_callback != null)
+				 	_callback(created);
             	PopUpManager.removePopUp(this);
             }
             
@@ -95,11 +115,21 @@
            		this.titleTextField.styleName = "title";
             }
             
-            public static function showCreateRoomWindow(server:String):void
+     
+            
+            public static function showCreateRoomWindow(server:String, callback:Function):void
 			{
 				var createRoomWindow:CreateRoomWindow = CreateRoomWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), CreateRoomWindow));
+	            createRoomWindow.callback = callback;
 	            PopUpManager.centerPopUp(createRoomWindow);
 	            createRoomWindow.show(server);
+			}
+			
+			private function handleJoin(e:RoomEvent)
+			{
+				 ChatManager.sharedInstance.joinGroupChat(jid, true);
+
+				 close();
 			}
         ]]>
     </mx:Script>
