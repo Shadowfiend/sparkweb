@@ -211,7 +211,7 @@
 	<mx:Spacer />
 	<mx:LinkButton styleName="gotoRegister" id="registerButton" label="{Localizator.getText('message.create.account')}" click="Application.application.showCreateAccount();" visible="{showCreateAccount}" /> 
 </mx:HBox>
-<mx:Grid id="grid" verticalGap="1" horizontalGap="0" styleName="loginGrid">
+<mx:Grid id="grid" styleName="loginGrid">
         
         	<mx:GridRow>
         		<mx:GridItem styleName="userLabelGrid">
