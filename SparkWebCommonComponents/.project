@@ -3,7 +3,6 @@
 	<name>SparkWebCommonComponents</name>
 	<comment></comment>
 	<projects>
-		<project>SparkWebCore</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
