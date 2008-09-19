@@ -11,12 +11,14 @@
 <classEntry path="com.jivesoftware.spark.chats.ChatUI"/>
 <classEntry path="com.jivesoftware.spark.managers.StringUtils"/>
 <classEntry path="com.jivesoftware.spark.managers.SparkManager"/>
+<classEntry path="com.jivesoftware.spark.managers.ComposableAccountManager"/>
 <classEntry path="com.jivesoftware.spark.managers.PresenceManager"/>
 <classEntry path="com.jivesoftware.spark.managers.MUCManager"/>
 <classEntry path="com.jivesoftware.spark.managers.ChatManager"/>
 <classEntry path="com.jivesoftware.spark.managers.ConnectionManager"/>
 <classEntry path="com.jivesoftware.spark.chats.SparkMessage"/>
 <classEntry path="com.jivesoftware.spark.managers.RoomSearchManager"/>
+<classEntry path="com.jivesoftware.spark.managers.ComposableManager"/>
 <classEntry path="com.jivesoftware.spark.managers.AbstractSearchManager"/>
 </includeClasses>
 <includeResources>

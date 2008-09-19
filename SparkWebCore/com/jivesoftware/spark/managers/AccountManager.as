@@ -22,10 +22,11 @@ package com.jivesoftware.spark.managers {
 	import org.jivesoftware.xiff.data.register.RegisterExtension;
 		
 	
-	public class AccountManager {
+	public class AccountManager implements IAccountManager{
 		
 		private var _connection:XMPPConnection;
 		private var _callBackFunction:Function;
+		
 		
 		public function AccountManager(con:XMPPConnection):void {
 			this._connection = con;
