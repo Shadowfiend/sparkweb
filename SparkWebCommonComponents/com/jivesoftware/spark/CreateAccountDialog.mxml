@@ -180,7 +180,7 @@
 		<mx:LinkButton styleName="gotoLogin" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
 	</mx:HBox>
 	
-	<mx:Grid id="grid" verticalGap="1" horizontalGap="0" styleName="registerGrid"  >
+	<mx:Grid id="grid" styleName="registerGrid"  >
         
 		<mx:GridRow>
 			<mx:GridItem styleName="userLabelGrid">
@@ -195,7 +195,7 @@
 			<mx:GridItem styleName="userFieldGrid">
 		      <mx:TextInput styleName="userTextInput" id="userNameField" />
 			</mx:GridItem>
-			<mx:GridItem paddingLeft="20">
+			<mx:GridItem styleName="passwordTextGrid">
 				<mx:TextInput styleName="emailTextGrid" id="emailField" />
 			</mx:GridItem>
 		</mx:GridRow>
@@ -214,21 +214,21 @@
 				<mx:TextInput styleName="passwordInput" id="passwordField" displayAsPassword="true" />
 			</mx:GridItem>
 			
-			<mx:GridItem paddingLeft="20">
+			<mx:GridItem styleName="passwordTextGrid">
 				<mx:TextInput styleName="passwordInput" id="confirmPasswordField" displayAsPassword="true" keyUp="handleKeyUp(event)" />
 			</mx:GridItem>
 		</mx:GridRow>
 		
-		<mx:GridRow paddingTop="8">
+		<mx:GridRow styleName="paddedGridRow">
 			<mx:GridItem colSpan="2">
-				<mx:Label fontSize="12" fontWeight="bold" filters="{[dropShadow]}" id="errorLabel" color="#FF9B26" />
+				<mx:Label styleName="errorLabel" filters="{[dropShadow]}" id="errorLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
-		<mx:GridRow paddingTop="8" width="100%">
+		<mx:GridRow styleName="paddedGridRow">
 		  <mx:GridItem />
-			<mx:GridItem id="loginItem" horizontalAlign="right" width="150">
-				<mx:Button id="cancelButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="Application.application.showLogin();" />
-				<mx:Button id="createAccountButton" textAlign="center" color="white" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
+			<mx:GridItem styleName="loginItem" id="loginItem">
+				<mx:Button styleName="createButton" id="cancelButton" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="Application.application.showLogin();" />
+				<mx:Button styleName="createButton" id="createAccountButton" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
 			</mx:GridItem>
 		</mx:GridRow>
         	
