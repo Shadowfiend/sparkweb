@@ -64,6 +64,11 @@ package com.jivesoftware.spark.managers
 			}
 			if(SparkManager.getConfigValueForKey("port") != null)
 				con.port = Number(SparkManager.getConfigValueForKey("port"));
+				
+			
+			var serverURL:String = SparkManager.getConfigValueForKey("server");
+			if(serverURL != null)
+				con.domain = serverURL;
 		}
 		
 		/**

@@ -7,7 +7,6 @@ package com.jivesoftware.spark.managers
 		public function ComposableManager()
 		{
 			_managers = new Array();
-			
 		}
 		
 		public function appendManager(manager:IManager):void
@@ -26,6 +25,7 @@ package com.jivesoftware.spark.managers
 		{
 			return _managers;
 		}
+		
 
 	}
 }

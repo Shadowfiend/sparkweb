@@ -26,6 +26,7 @@
 	styleName="roundedPanel">
 <mx:Script>
 	<![CDATA[
+		import org.jivesoftware.xiff.core.XMPPConnection;
 		import org.jivesoftware.xiff.events.DisconnectionEvent;
 		import mx.collections.ArrayCollection;
 		import org.jivesoftware.xiff.events.XIFFErrorEvent;
@@ -37,8 +38,7 @@
 		import com.jivesoftware.spark.managers.*;
 		import mx.managers.FocusManager;
 	
-		private var con:XMPPSocketConnection = new XMPPSocketConnection();
-		private var serverURL:String;	
+		private var con:XMPPConnection;
 		private var username:String;
 		private var password:String;
 		[Bindable]
@@ -57,7 +57,6 @@
 		{
 			username = userNameField.text;
 			password = passwordField.text;
-			serverURL = SparkManager.getConfigValueForKey("server");
 			
 			var confirmPassword:String = confirmPasswordField.text;
 			if(password != confirmPassword)
@@ -72,12 +71,14 @@
 				return;
 			}
 			
-			// Save server URL for later.
-			if(servers.indexOf(serverURL) == -1)
-			{
-				var so:SharedObject = SharedObject.getLocal("savedData");
-	 			so.data.savedAccountCreationServers.unshift(serverURL);
-			}
+			// Save server URL for later. Just saving this as sampl of sharedObject code
+//			if(servers.indexOf(serverURL) == -1)
+//			{
+//				var so:SharedObject = SharedObject.getLocal("savedData");
+//	 			so.data.savedAccountCreationServers.unshift(serverURL);
+//			}
+	
+			con = SparkManager.connectionManager.connection;
 			
 			// Register event listeners
 			con.addEventListener("connection", createAccount);
@@ -85,7 +86,7 @@
 			con.addEventListener("error", creationError);
 			
 			// Create Account
-			con.server = serverURL;
+//			con.server = serverURL;
 			con.connect("standard");
 		}
 		
