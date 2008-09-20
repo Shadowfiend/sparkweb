@@ -1,6 +1,6 @@
 package com.jivesoftware.spark.managers
 {
-	public class ComposableAccountManager implements IAccountManager
+	public class ComposableAccountManager implements AccountManager
 	{
 		public function ComposableAccountManager()
 		{

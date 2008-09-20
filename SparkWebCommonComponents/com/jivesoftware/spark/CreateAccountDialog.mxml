@@ -95,7 +95,7 @@
 		
 		private function createAccount(event:Event):void 
 		{
-			var accountManager:AccountManager = new AccountManager(con);
+			var accountManager:AccountManager = SparkManager.accountManager;
 			accountManager.createAccount(username, password, creationResults);
 		}
 		

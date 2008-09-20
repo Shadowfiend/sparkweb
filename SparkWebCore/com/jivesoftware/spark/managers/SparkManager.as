@@ -109,6 +109,11 @@ package com.jivesoftware.spark.managers
 			return _bookmarkManager;
 		}
 		
+		public static function get accountManager():AccountManager
+		{
+			return new XMPPAccountManager(connectionManager.connection);
+		}
+		
 		/**
 		 * Returns the SharedGroupsManager for this instance
 		 * @return the SharedGroupsManager
