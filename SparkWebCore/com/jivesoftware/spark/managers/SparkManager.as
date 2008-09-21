@@ -54,11 +54,22 @@ package com.jivesoftware.spark.managers
 		
 		protected static var _errorHandler:Function;
 		protected static var _configProvider:Function;
+		protected static var _managerFactory:ManagerFactory;
 		
   		private static var _roster:Roster;
 		
 		[Bindable]
 		public static var me:RosterItemVO;
+		
+		public static function set managerFactory(factory:ManagerFactory):void
+		{
+			_managerFactory = factory;
+		}
+		
+		public static function get managerFactory():ManagerFactory
+		{
+			return _managerFactory;
+		}
 		
 		public static function get roster():Roster
 		{
@@ -110,6 +121,14 @@ package com.jivesoftware.spark.managers
 		}
 		
 		public static function get accountManager():AccountManager
+		{
+			if(managerFactory != null)
+				return managerFactory.accountManager;
+			return xmppAccountManager;
+			
+		}
+		
+		public static function get xmppAccountManager():AccountManager
 		{
 			return new XMPPAccountManager(connectionManager.connection);
 		}
