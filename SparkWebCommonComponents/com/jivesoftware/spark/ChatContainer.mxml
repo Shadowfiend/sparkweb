@@ -120,22 +120,17 @@
 					child.id = chat.jid.bareJID;
 					child.chat = chat;
 					child.label = chat.displayName;
-					child.setStyle('paddingLeft', 10);
-					child.setStyle('paddingBottom', 10);
-					child.setStyle('paddingRight', 10);
-					child.setStyle('paddingTop', 10);
-					child.setStyle('backgroundAlpha', 0.9);
-					child.setStyle('backgroundColor', "white");
-					child.setStyle('borderStyle', "solid");
-					child.setStyle('borderWidth', 0.5);
-					child.setStyle('borderColor', "#AAAAAA");
+					child.setStyle('paddingLeft', 5);
+					child.setStyle('paddingBottom', 5);
+					child.setStyle('paddingRight', 5);
+					child.setStyle('paddingTop', 5);
 					chatFrame.addChild(child);
+					
 				}
 				
 				setVisible(true);
 				
 				chatFrame.validateDisplayList();
-			    
 			    if(inFocus && (activate || chatFrame.getChildren().length == 1))
 			    	activeRoom = child;
 			}
@@ -219,15 +214,16 @@
    		 	 id="chatFrame"
    		 	 width="100%"
    		 	 height="100%"
-   		 	 backgroundAlpha="0.0"
-   		 	 borderStyle="none"
+   		 	 styleName="roomTabs"
    		 	 paddingTop="0"
-		     popUpButtonPolicy="off"
+		     popUpButtonPolicy="auto"
      		 scrollSpeed="100"
-     		 dragEnabled="false"
-     		 dropEnabled="false"
-     		 minTabWidth="80"
+     		 dragEnabled="true"
+     		 dropEnabled="true"
+     		 minTabWidth="70"
      		 tabWidth="150"
+     		 horizontalGap ="1"
+     		 tabHeight="30"
      		 change="activeRoom = event.relatedObject as ChatRoom"
      	/>
  </sparkComp:ColorShiftingPanel>
