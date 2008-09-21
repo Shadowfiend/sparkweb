@@ -22,6 +22,7 @@
 	     xmlns:local="*"
 	     xmlns:jive="com.jivesoftware.spark.ui.*"
 	     xmlns:spark="com.jivesoftware.spark.*"
+	     xmlns:inquus="com.inquus.spark.*"
 	     width="100%"
 	     height="100%"
 	     verticalScrollPolicy="off"
@@ -29,7 +30,7 @@
 	     creationComplete="setup()"
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
 	     backgroundColor="#EDEDED"
-	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*">
+	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
 	     
 	<mx:Script>
 		<![CDATA[
@@ -322,13 +323,14 @@
 
     <!-- Add Top UI -->
    <mx:HDividedBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
-   
-		<mx:Canvas id="mainContentBox" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" height="100%">
+ 		<mx:VDividedBox height="100%" width="250" verticalScrollPolicy="off" horizontalScrollPolicy="off">  
+		<mx:Canvas id="mainContentBox" width="100%" height="82%">
 			<mx:TextArea 
 				id="topicBox" 
 				top="0" 
 				left="0" 
-				right="0" 
+				right="0"
+				width="100%" 
 				borderSides="right left" 
 				editable="false" 
 				borderStyle="solid" 
@@ -344,15 +346,20 @@
 				fontFamily="Lucida Sans, Myriad Pro, Arial, sans serif" />
 			<jive:MessageHistory
 			    top="{topicBox.height}"
+			    width="100%"
 				id="history" 
 				height="{mainContentBox.height - topicBox.height}" 
-				width="{mainContentBox.width}"
 				borderStyle="solid" 
 				horizontalScrollPolicy="off"
-			    verticalScrollPolicy="on" />
+			    verticalScrollPolicy="auto" />
+			
 		</mx:Canvas>
-		
-		<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 225 : 0}">
+		<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
+ 		</mx:VDividedBox>
+ 		<inquus:Viewer width="100%" height="100%">
+ 			
+ 		</inquus:Viewer>
+		<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 200 : 0}">
 			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" height="100%" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
 				<spark:ListGroup 
 					creationComplete="{ScrollWheelManager.registerForScrollEvents(occupantList.navBox)}" 
@@ -395,6 +402,6 @@
 	
 	</mx:HDividedBox>
 
-	<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
+	
 	
 </mx:VDividedBox>
