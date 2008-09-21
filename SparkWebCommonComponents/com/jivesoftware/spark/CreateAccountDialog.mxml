@@ -26,6 +26,7 @@
 	styleName="roundedPanel">
 <mx:Script>
 	<![CDATA[
+		import mx.controls.Alert;
 		import com.inquus.spark.event.CreateAccountEvent;
 		import org.jivesoftware.xiff.core.XMPPConnection;
 		import org.jivesoftware.xiff.events.DisconnectionEvent;
@@ -43,6 +44,7 @@
 		private var serverURL:String;	
 		private var username:String;
 		private var password:String;
+		private var email:String;
 		[Bindable]
 		private var servers:Array = [];
 		
@@ -59,6 +61,7 @@
 		{
 			username = userNameField.text;
 			password = passwordField.text;
+			email = emailField.text;
 			serverURL = SparkManager.getConfigValueForKey("server");
 			
 			con = SparkManager.connectionManager.connection;
@@ -77,26 +80,35 @@
 			focusManager.setFocus(userNameField);
 		}
 		
+		public function cleanupConnections():void
+		{
+			// Register event listeners
+			con.removeEventListener("connection", createAccount);
+			con.removeEventListener("disconnection", onDisconnection);
+			con.removeEventListener("error", creationError);
+		}
+		
 		private function createAccount(event:Event):void 
 		{
 			var accountManager:AccountManager = SparkManager.accountManager;
-			accountManager.createAccount(username, password, creationResults);
+			accountManager.createAccount(username, password, email,creationResults, creationErrors);
 		}
 		
 		private function creationError(event:Event):void 
 		{
-			con.removeEventListener("error", creationError);
+			cleanupConnections();
 			showErrorText(Localizator.getText("message.account.creation.failed"));
 		}
 		
 		private function onDisconnection(event:DisconnectionEvent):void 
 		{
-			con.removeEventListener("disconnection", onDisconnection);
+			cleanupConnections();
 			showErrorText(Localizator.getText("message.service.unavailable"));
 		}
 		
 		private function creationResults(iq:IQ):void 
 		{
+			cleanupConnections();
 			if(iq.type == IQ.RESULT_TYPE)
 			{
 				var evt:CreateAccountEvent = new CreateAccountEvent(CreateAccountEvent.ACCOUNT_CREATED);
@@ -137,6 +149,13 @@
 		{
 			_titleImage = (image != "" ? image : null);
 		}		
+		
+		private function creationErrors(errors:Array)
+		{
+			cleanupConnections();
+			if(errors != null)
+				errors.forEach(function (error:String) { Alert.show(error);});
+		}
 
 		[Bindable]
 		public function get titleImage():Object 
@@ -158,6 +177,7 @@
 		
 		public function cancel():void
 		{
+			cleanupConnections();
 			userNameField.text = "";
 			passwordField.text = "";
 			emailField.text = "";

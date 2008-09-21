@@ -22,7 +22,7 @@ package com.jivesoftware.spark.managers {
 	import org.jivesoftware.xiff.data.register.RegisterExtension;
 		
 	
-	public class XMPPAccountManager implements AccountManager, IManager{
+	public class XMPPAccountManager implements AccountManager{
 		
 		private var _connection:XMPPConnection;
 		private var _callBackFunction:Function;
@@ -32,7 +32,7 @@ package com.jivesoftware.spark.managers {
 			this._connection = con;
 		}
 		
-		public function createAccount(username:String, password:String, callBackFunction:Function):void 
+		public function createAccount(username:String, password:String, email:String, onSuccess:Function, onFailure:Function=null):void 
 		{
 			var iq:IQ = new IQ(new EscapedJID(_connection.server), IQ.SET_TYPE);
 		    iq.callbackName = "handleRegistration";
@@ -43,7 +43,7 @@ package com.jivesoftware.spark.managers {
 			reg.password = password;
 			iq.addExtension(reg);
 			
-			_callBackFunction = callBackFunction;
+			_callBackFunction = onSuccess;
 			
 			_connection.send(iq);
 		}
