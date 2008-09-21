@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
+<classEntry path="com.inquus.spark.event.ServiceEvent"/>
+<classEntry path="com.inquus.spark.event.CreateAccountEvent"/>
 <classEntry path="com.jivesoftware.spark.managers.Localizator"/>
 <classEntry path="com.jivesoftware.spark.managers.UserSearchManager"/>
 <classEntry path="com.jivesoftware.spark.chats.SparkGroupChat"/>

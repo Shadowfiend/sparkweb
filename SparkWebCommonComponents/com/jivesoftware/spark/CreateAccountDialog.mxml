@@ -26,6 +26,7 @@
 	styleName="roundedPanel">
 <mx:Script>
 	<![CDATA[
+		import com.inquus.spark.event.CreateAccountEvent;
 		import org.jivesoftware.xiff.core.XMPPConnection;
 		import org.jivesoftware.xiff.events.DisconnectionEvent;
 		import mx.collections.ArrayCollection;
@@ -39,6 +40,7 @@
 		import mx.managers.FocusManager;
 	
 		private var con:XMPPConnection;
+		private var serverURL:String;	
 		private var username:String;
 		private var password:String;
 		[Bindable]
@@ -57,27 +59,8 @@
 		{
 			username = userNameField.text;
 			password = passwordField.text;
+			serverURL = SparkManager.getConfigValueForKey("server");
 			
-			var confirmPassword:String = confirmPasswordField.text;
-			if(password != confirmPassword)
-			{
-				showErrorText(Localizator.getText("message.passwords.do.not.match"));
-				return;
-			}
-			
-			if(userNameField.length == 0 || passwordField.length == 0) 
-			{
-				showErrorText(Localizator.getText('message.incomplete.fields'));
-				return;
-			}
-			
-			// Save server URL for later. Just saving this as sampl of sharedObject code
-//			if(servers.indexOf(serverURL) == -1)
-//			{
-//				var so:SharedObject = SharedObject.getLocal("savedData");
-//	 			so.data.savedAccountCreationServers.unshift(serverURL);
-//			}
-	
 			con = SparkManager.connectionManager.connection;
 			
 			// Register event listeners
@@ -86,7 +69,7 @@
 			con.addEventListener("error", creationError);
 			
 			// Create Account
-//			con.server = serverURL;
+			con.server = serverURL;
 			con.connect("standard");
 		}
 		
@@ -116,10 +99,10 @@
 		{
 			if(iq.type == IQ.RESULT_TYPE)
 			{
-				// This is not actually "error" text, but it is convenient to use the error label to report the account creation.
-				Application.application.loginDialog.showErrorText(Localizator.getText("message.account.creation.succeeded"));
-				
-				Application.application.showLogin(userNameField.text, passwordField.text, con.server);
+				var evt:CreateAccountEvent = new CreateAccountEvent(CreateAccountEvent.ACCOUNT_CREATED);
+				evt.username = userNameField.text;
+				evt.password = passwordField.text;
+				dispatchEvent(evt);
 			}
 			else {
 		    	showErrorText(Localizator.getText("message.account.creation.failed"));
@@ -173,8 +156,38 @@
 			return _showLogin;
 		}
 		
+		public function cancel():void
+		{
+			userNameField.text = "";
+			passwordField.text = "";
+			emailField.text = "";
+			confirmPasswordField.text = "";
+			var evt:CreateAccountEvent = new CreateAccountEvent(CreateAccountEvent.ACCOUNT_CANCEL);
+			dispatchEvent(evt);
+		}
+		
 	]]>
 </mx:Script>
+<mx:Metadata>
+	[Event(name="accountCancel", type="com.inquus.spark.event.CreateAccountEvent")]
+	[Event(name="accountCreated", type="com.inquus.spark.event.CreateAccountEvent")]
+</mx:Metadata>
+    <mx:EmailValidator id="emailValidator"
+            source="{emailField}"
+            property="text"
+      />
+    <mx:StringValidator 
+        id="nameValidator"
+        source="{userNameField}" 
+        property="text"
+        minLength="2"
+    />
+    <mx:StringValidator 
+        id="passValidator"
+        source="{passwordField}" 
+        property="text"
+        minLength="5"
+    /> 
 	<mx:HBox styleName="titleBar">
 		<mx:Image source="{titleImage}" visible="{titleImage != null}" />
 		<mx:Spacer />
@@ -228,8 +241,9 @@
 		<mx:GridRow styleName="paddedGridRow">
 		  <mx:GridItem />
 			<mx:GridItem styleName="loginItem" id="loginItem">
-				<mx:Button styleName="createButton" id="cancelButton" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="Application.application.showLogin();" />
-				<mx:Button styleName="createButton" id="createAccountButton" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect()" />
+				<mx:Button styleName="createButton" id="cancelButton" filters="{[dropShadow]}" label="{Localizator.getText('label.cancel')}" click="cancel();"/>
+				
+				<mx:Button styleName="createButton" id="createAccountButton" filters="{[dropShadow]}" label="{Localizator.getText('label.create')}" click="connect();" />
 			</mx:GridItem>
 		</mx:GridRow>
         	
