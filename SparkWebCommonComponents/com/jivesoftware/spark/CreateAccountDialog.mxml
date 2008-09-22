@@ -152,11 +152,11 @@
 			_titleImage = (image != "" ? image : null);
 		}		
 		
-		private function creationErrors(errors:Array)
+		private function creationErrors(errors:Object)
 		{
 			cleanupConnections();
 			if(errors != null)
-				errors.forEach(function (error:String) { Alert.show(error);});
+				Alert.show(errors.toString());
 		}
 
 		[Bindable]
