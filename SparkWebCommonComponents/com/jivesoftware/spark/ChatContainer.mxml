@@ -210,12 +210,16 @@
 			}
 		]]>
 	</mx:Script>
+		<mx:Canvas height="50" width="100%" id="roomHeader" borderThickness="1" borderStyle="solid" backgroundColor="white" backgroundAlpha=".6" borderColor="black" cornerRadius="6">
+		<mx:Text text="Header"/>
+		</mx:Canvas>
    		 <flexlib:SuperTabNavigator
    		 	 id="chatFrame"
    		 	 width="100%"
    		 	 height="100%"
    		 	 styleName="roomTabs"
    		 	 paddingTop="0"
+   		 	 top="43"
 		     popUpButtonPolicy="auto"
      		 scrollSpeed="100"
      		 dragEnabled="true"
@@ -223,7 +227,7 @@
      		 minTabWidth="70"
      		 tabWidth="150"
      		 horizontalGap ="1"
-     		 tabHeight="30"
+     		 tabHeight="20"
      		 change="activeRoom = event.relatedObject as ChatRoom"
      	/>
  </sparkComp:ColorShiftingPanel>

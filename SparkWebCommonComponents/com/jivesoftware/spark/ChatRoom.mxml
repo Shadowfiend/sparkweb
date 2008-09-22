@@ -16,9 +16,7 @@
     You should have received a copy of the GNU Lesser General Public License
     along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
-
-<mx:VDividedBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
 	     xmlns:local="*"
 	     xmlns:jive="com.jivesoftware.spark.ui.*"
 	     xmlns:spark="com.jivesoftware.spark.*"
@@ -31,7 +29,6 @@
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
 	     backgroundColor="#EDEDED"
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
-	     
 	<mx:Script>
 		<![CDATA[
 			import org.jivesoftware.xiff.data.im.Contact;
@@ -321,6 +318,9 @@
 
 	<filts:DropShadowFilter alpha="0.2" angle="90" blurY="7" blurX="3" inner="true" id="topshadow"/>
 
+
+   <mx:VDividedBox paddingTop="3" width="100%" height="100%">     
+
     <!-- Add Top UI -->
    <mx:HDividedBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
  		<mx:VDividedBox height="100%" width="250" verticalScrollPolicy="off" horizontalScrollPolicy="off">  
@@ -402,6 +402,6 @@
 	
 	</mx:HDividedBox>
 
-	
-	
 </mx:VDividedBox>
+
+</mx:Canvas>

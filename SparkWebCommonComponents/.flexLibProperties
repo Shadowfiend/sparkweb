@@ -31,7 +31,6 @@
 <classEntry path="com.jivesoftware.spark.OfflineListGroup"/>
 <classEntry path="com.jivesoftware.spark.ScrollWheelManager"/>
 <classEntry path="com.jivesoftware.spark.MUCInviteReceiveWindow"/>
-<classEntry path="com.inquus.spark.Viewer"/>
 <classEntry path="com.jivesoftware.spark.SubscriptionRequestWindow"/>
 <classEntry path="com.jivesoftware.spark.ContactListContainer"/>
 <classEntry path="sho.ui.CompletionInput"/>
@@ -71,6 +70,7 @@
 <classEntry path="com.jivesoftware.spark.ChatContainer"/>
 <classEntry path="com.jivesoftware.spark.TruncatingLabel"/>
 <classEntry path="com.jivesoftware.spark.MUCInviteSendRosterWindow"/>
+<classEntry path="com.inquus.spark.ViewerController"/>
 <classEntry path="com.jivesoftware.spark.CanvasButtonAccordionHeader"/>
 </includeClasses>
 <includeResources>
