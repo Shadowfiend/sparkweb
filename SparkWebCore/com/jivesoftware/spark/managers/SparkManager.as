@@ -17,6 +17,9 @@
 
 package com.jivesoftware.spark.managers
 {
+	import com.inquus.spark.managers.IManagerFactory;
+	import com.inquus.spark.mediators.IChatMediator;
+	import com.inquus.spark.mediators.IMediatorFactory;
 	import com.jivesoftware.spark.*;
 	
 	import org.jivesoftware.xiff.bookmark.BookmarkManager;
@@ -54,22 +57,40 @@ package com.jivesoftware.spark.managers
 		
 		protected static var _errorHandler:Function;
 		protected static var _configProvider:Function;
-		protected static var _managerFactory:ManagerFactory;
+		protected static var _managerFactory:IManagerFactory;
+		protected static var _mediatorsFactory:IMediatorFactory;
 		
   		private static var _roster:Roster;
 		
 		[Bindable]
 		public static var me:RosterItemVO;
 		
-		public static function set managerFactory(factory:ManagerFactory):void
+		public static function set managerFactory(factory:IManagerFactory):void
 		{
 			_managerFactory = factory;
 		}
 		
-		public static function get managerFactory():ManagerFactory
+		public static function get managerFactory():IManagerFactory
 		{
 			return _managerFactory;
 		}
+		
+		public static function get mediatorFactory():IMediatorFactory
+		{
+			return _mediatorsFactory;
+		}	
+		
+		public static function get chatMediator():IChatMediator
+		{
+			return mediatorFactory ? mediatorFactory.chatMediator : null;
+		}
+		
+		
+		public static function set mediatorFactory(factory:IMediatorFactory):void
+		{
+			_mediatorsFactory = factory;
+		}	
+		
 		
 		public static function get roster():Roster
 		{
