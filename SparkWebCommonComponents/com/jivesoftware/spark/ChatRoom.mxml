@@ -26,7 +26,6 @@
 	     verticalScrollPolicy="off"
 	     horizontalScrollPolicy="off"
 	     creationComplete="setup()"
-	     creationPolicy="all"
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
 	     backgroundColor="#EDEDED"
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
@@ -87,19 +86,18 @@
 			
 			public function set viewer(view:com.inquus.spark.mediators.IViewerMediator):void
 			{
-				
-				callLater(setViewer,[view]);
+				_currentViewer = view;
+				callLater(setViewerInternal,[view]);
 			}
-			
 			public function get viewer():IViewerMediator
 			{
 				return _currentViewer;
 			}
-			private function setViewer(view:IViewerMediator):void
+			private function setViewerInternal(view:IViewerMediator):void
 			{
-				_currentViewer = view;
-				viewerWindow.viewer = _currentViewer;
 				_currentViewer.getContent().addEventListener(ViewerEvent.NEW_MESSAGE, handleViewerMessage);
+				viewerWindow.viewer = _currentViewer;
+				_currentViewer = view;
 			}
 
 			protected function clearTextBox():void
@@ -171,7 +169,7 @@
 				
 				callLater(addMessageInternal,[message, extra]);
 			}
-			private function addMessageInternal(message:SparkMessage, extra:UIComponent = null):void
+			public function addMessageInternal(message:SparkMessage, extra:UIComponent = null):void
 			{
 				for each(var filter:* in displayFilters)
 				{
@@ -192,6 +190,16 @@
 				if(!message.local)
 					increaseMessageCount();
 				lastMessage = message;
+			}
+			
+			public function addShareMessage(message:SparkMessage, viewerMessage:ViewerMessage):void
+			{
+				callLater(addShareMessageInternal,[message,viewerMessage]);
+			}
+			
+			protected function addShareMessageInternal(message:SparkMessage, viewerMessage:ViewerMessage):void
+			{
+				addMessage(message, _currentViewer.getThumbNail(viewerMessage));
 			}
 			
 			protected function runCommand(message:String):Boolean

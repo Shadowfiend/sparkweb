@@ -48,6 +48,11 @@ package com.jivesoftware.spark.managers {
 			_connection.send(iq);
 		}
 		
+		public function loginAccount(username:String, password:String, onSuccess:Function, onFailure:Function=null):void
+		{
+			
+		}
+		
 		public function handleRegistration(iq:IQ):void {
 			_callBackFunction.call(this, iq);
 		}

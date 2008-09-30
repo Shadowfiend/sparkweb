@@ -72,7 +72,7 @@
 	</mx:Script>
 	<mx:Label styleName="viewerMessageHeader" text="{message}"/>
 	<mx:HBox width="100%" height="100%">
-			<mx:Image id="thumb" source="{image ? image : imageUrl }"/>
+			<mx:Image id="thumb" height="48" width="48" scaleContent="true" source="{image ? image : imageUrl }"/>
 			<mx:Label styleName="viewerMessageLabel" text="{viewerLabel}"/>
 			<mx:Image source="{viewImage}"/> 
 			<mx:Label styleName="viewerNumViewing" text="{numViewing}"/>			

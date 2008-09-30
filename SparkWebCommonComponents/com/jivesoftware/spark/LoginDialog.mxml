@@ -27,6 +27,7 @@
 	creationComplete="focusUsername()">
 <mx:Script>
 	<![CDATA[
+		import mx.controls.Alert;
 		import mx.controls.Image;
 		import mx.core.UIComponent;
 		import org.jivesoftware.xiff.events.LoginEvent;
@@ -69,8 +70,24 @@
 				return;
 			}
 				
+			var username:String = userNameField.text;
+			var passwordStr:String = passwordField.text;
+
+			loginButton.enabled = false;
+			SparkManager.accountManager.loginAccount(username,passwordStr,doJabberLogin,failedLogin);
+
+			
+		}
+		
+		private function failedLogin(errors:Object)
+		{
+			showErrorText("Invalid username/password");
+		}
+		
+		private function doJabberLogin(results:Object):void
+		{
+		
 			var connectionManager:ConnectionManager = SparkManager.connectionManager;
-				
 			var username:String = userNameField.text;
 			var passwordStr:String = passwordField.text;
 			serverURL = SparkManager.getConfigValueForKey("server");
@@ -90,8 +107,6 @@
 			Security.allowInsecureDomain("*");
 
 			loginButton.enabled = false;
-			
-
 			connectionManager.login(username, passwordStr, serverURL);
 		}
 		

@@ -10,6 +10,9 @@ package com.jivesoftware.spark.managers
 		{
 			
 		}
-
+		public function loginAccount(username:String, password:String, onSuccess:Function, onFailure:Function=null): void
+		{
+			
+		}
 	}
 }
