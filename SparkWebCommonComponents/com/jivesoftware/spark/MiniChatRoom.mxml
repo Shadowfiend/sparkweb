@@ -34,6 +34,7 @@
 	     
 	<mx:Script>
 		<![CDATA[
+			import mx.core.UIComponent;
 			import com.jivesoftware.spark.managers.Localizator;
 			import org.jivesoftware.xiff.events.RoomEvent;
 			import org.jivesoftware.xiff.conference.Room;
@@ -129,7 +130,7 @@
 		        dayTimer.start();
 		    }
 			
-			public function addMessage(message:SparkMessage):void
+			public function addMessage(message:SparkMessage, extra:UIComponent = null):void
 			{
 				for each(var filter:* in filters)
 				{

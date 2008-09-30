@@ -4,9 +4,9 @@
 <compilerSourcePath/>
 <libraryPath defaultLinkType="1">
 <libraryPathEntry kind="4" path=""/>
-<libraryPathEntry kind="3" linkType="1" path="/SparkWebCore/bin/SparkWebCore.swc" useDefaultLinkType="false"/>
 <libraryPathEntry kind="3" linkType="1" path="/XIFF/bin/XIFF.swc" sourcepath="/XIFF" useDefaultLinkType="false"/>
 <libraryPathEntry kind="1" linkType="1" path="assets/lib"/>
+<libraryPathEntry kind="3" linkType="1" path="/SparkWebCore/bin/SparkWebCore.swc" useDefaultLinkType="false"/>
 </libraryPath>
 <sourceAttachmentPath>
 <sourceAttachmentPathEntry kind="3" linkType="1" path="/XIFF/bin/XIFF.swc" sourcepath="/XIFF" useDefaultLinkType="false"/>
@@ -14,6 +14,7 @@
 </compiler>
 <applications>
 <application path="SparkWebCommonComponents.as"/>
+<application path="Viewer.mxml"/>
 </applications>
 <modules/>
 <buildCSSFiles/>

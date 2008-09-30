@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" horizontalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import com.inquus.spark.mediators.IViewerMediator;
+			public function set viewer(viewer:IViewerMediator):void
+			{
+				main.setVisible(false);
+				main.removeAllChildren();
+				//main.addChild(viewer.getHeader());
+				main.addChild(viewer.getContent());
+				main.setVisible(true);
+			}
+		]]>
+	</mx:Script>
+	<mx:Fade duration="300" id="fade"/>
+	<mx:Box id="main" height="100%" width="100%" visible="false" showEffect="fade" horizontalScrollPolicy="off">
+	</mx:Box>
+</mx:Canvas>

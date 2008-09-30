@@ -26,11 +26,20 @@
 	     verticalScrollPolicy="off"
 	     horizontalScrollPolicy="off"
 	     creationComplete="setup()"
+	     creationPolicy="all"
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
 	     backgroundColor="#EDEDED"
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
 	<mx:Script>
 		<![CDATA[
+			import com.inquus.spark.ViewerThumbNail;
+			import com.inquus.spark.vo.ViewerMessage;
+			import com.jivesoftware.spark.events.ChatMessageEvent;
+			import com.inquus.spark.event.ViewerEvent;
+			import com.inquus.spark.mediators.IViewerMediator;
+			import com.inquus.spark.event.ViewerEvent;
+
+			import mx.core.UIComponent;
 			import org.jivesoftware.xiff.data.im.Contact;
 			import mx.events.ListEvent;
 			import com.jivesoftware.spark.managers.Localizator;
@@ -48,6 +57,7 @@
 			import com.jivesoftware.spark.managers.StringUtils;
 			private var _active:Boolean = false;
 			protected var _isTyping:Boolean = false;
+			private var _created:Boolean = false;
 			[Bindable]
 			protected var unreadMessageCount:uint = 0;
 			private var _chat:SparkChat;
@@ -72,6 +82,40 @@
 			
 			private var selectedUser:Contact = null;
 			
+
+			private var _currentViewer:IViewerMediator;
+			
+			public function set viewer(view:com.inquus.spark.mediators.IViewerMediator):void
+			{
+				
+				callLater(setViewer,[view]);
+			}
+			
+			public function get viewer():IViewerMediator
+			{
+				return _currentViewer;
+			}
+			private function setViewer(view:IViewerMediator):void
+			{
+				_currentViewer = view;
+				viewerWindow.viewer = _currentViewer;
+				_currentViewer.getContent().addEventListener(ViewerEvent.NEW_MESSAGE, handleViewerMessage);
+			}
+
+			protected function clearTextBox():void
+			{
+				editor.textArea.text = "";
+			}
+			
+			protected function handleViewerMessage(event:com.inquus.spark.event.ViewerEvent):void
+			{
+				var msgEvent:ChatMessageEvent = new ChatMessageEvent(ChatMessageEvent.VIEWER_MESSAGE);
+				msgEvent.message = event.message;
+				dispatchEvent(msgEvent);
+				
+		
+			}
+			
 			protected function setup():void
 			{
 				occupantList.addEventListener("change", highlightUser);
@@ -90,12 +134,15 @@
 					// Send Message
 					chat.transmitMessage(message);
 					chat.insertMessage(message);
+					callLater(clearTextBox);
 				});
 				dayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function(evt:TimerEvent):void {
 					addSystemMessage(new Date().toLocaleDateString());
 					setupDateChangeEvent();
 				});
 				setupDateChangeEvent();
+				_created = true;
+
 			}
 			
 			protected function highlightUser(event:ListEvent):void
@@ -119,7 +166,12 @@
 		        dayTimer.start();
 		    }
 			
-			public function addMessage(message:SparkMessage):void
+			public function addMessage(message:SparkMessage, extra:UIComponent=null):void
+			{
+				
+				callLater(addMessageInternal,[message, extra]);
+			}
+			private function addMessageInternal(message:SparkMessage, extra:UIComponent = null):void
 			{
 				for each(var filter:* in displayFilters)
 				{
@@ -135,7 +187,7 @@
 						addSystemMessage(message.time.toLocaleDateString());
 				}
 				
-				history.addUserMessage(id, id, message.body, message.time, message.local ? (selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null);
+				history.addUserMessage(id, id, message.body, message.time, message.local ? (selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null, extra as ViewerThumbNail);
 				
 				if(!message.local)
 					increaseMessageCount();
@@ -241,7 +293,22 @@
 			}
 			
 			public function addSystemMessage(body:String, time:Date = null):void {
-				history.addSystemMessage(body, time, null);
+				callLater( addSystemMessageInternal, [body,time]);
+			}
+			
+			public function addViewerMessage(message:ViewerMessage):void
+			{
+				callLater(handleViewerMessageInternal, [message]);
+			}
+			
+			private function handleViewerMessageInternal(message:ViewerMessage):void
+			{
+				_currentViewer.handleMessage(message);
+			}
+			
+			private function addSystemMessageInternal(body:String, time:Date = null):void
+			{
+				history.addSystemMessage(body,time,null);
 			}
 			
 			//todo: figure out how to make this statically typed without breaking bindings
@@ -356,9 +423,9 @@
 		</mx:Canvas>
 		<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
  		</mx:VDividedBox>
- 		<inquus:Viewer width="100%" height="100%">
+ 		<inquus:ViewerWindow id="viewerWindow" width="100%" height="100%">
  			
- 		</inquus:Viewer>
+ 		</inquus:ViewerWindow>
 		<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 200 : 0}">
 			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" height="100%" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
 				<spark:ListGroup 

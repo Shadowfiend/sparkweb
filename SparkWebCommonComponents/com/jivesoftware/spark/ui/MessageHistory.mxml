@@ -20,6 +20,7 @@
 
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" verticalGap="0" horizontalGap="0" backgroundColor="white" creationComplete="init()">
 	<mx:Script><![CDATA[
+		import com.inquus.spark.ViewerThumbNail;
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.ScrollWheelManager;
 		import com.jivesoftware.spark.utils.UniqueingQueue;
@@ -182,7 +183,7 @@
 			_currentMessageBox.addMessage(messageText, messageDate ? messageDate : new Date(), "system");
 		}
 		
-		public function addUserMessage(userId:String, username:String, messageText:String, messageDate:Date, type:String = null):void {
+		public function addUserMessage(userId:String, username:String, messageText:String, messageDate:Date, type:String = null, viewerThumbNail:ViewerThumbNail = null):void {
 			activityHistory.unshift(username);
 			if(!_currentMessageBox || _currentMessageBox.type == "system" || _currentMessageBox.userId != userId) {
 				_currentMessageBox = _createMessageBox();
@@ -200,7 +201,7 @@
 			if(username && username.length > 0 && userId && userId.length > 0)
 				mentioned = messageText.toLowerCase().indexOf(SparkManager.me.displayName.toLowerCase()) >= 0 && type != "user";
 			
-			_currentMessageBox.addMessage(messageText, messageDate, mentioned ? "highlight" : "text");
+			_currentMessageBox.addMessage(messageText, messageDate, mentioned ? "highlight" : "text", null,viewerThumbNail);
 		}
 		
 		public function setUserMessageType(userId:String, type:String = null):void {

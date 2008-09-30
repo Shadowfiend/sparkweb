@@ -20,6 +20,7 @@ package com.jivesoftware.spark.chats
 	
 	import com.jivesoftware.spark.managers.*;
 	
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.xml.XMLNode;
 	
@@ -43,8 +44,8 @@ package com.jivesoftware.spark.chats
 		protected var _presence:String;
 		protected var _activated:Boolean;
 		protected var _isReady:Boolean = false;
+		protected var _extraData:String = "";
 				
-		
 		
 		public function SparkChat(j:UnescapedJID)
 		{
@@ -62,6 +63,19 @@ package com.jivesoftware.spark.chats
 		{
 			_ui = view;
 			setup(_jid);
+		}
+		
+		//data delimited by ::
+		public function set extraData(data:String):void
+		{
+			_extraData = data;
+			dispatchEvent(new Event("extraData"));
+		}
+		
+	
+		public function get extraData():String
+		{
+			return _extraData;
 		}
 		
 		public function setup(j:UnescapedJID):void
@@ -96,6 +110,7 @@ package com.jivesoftware.spark.chats
 			insertMessage(SparkMessage.fromMessage(msg, this));
 			return true;
 		}
+
 		
 		[Bindable(event="occupantsChanged")]
 		public function get occupants():ArrayCollection {
@@ -138,6 +153,7 @@ package com.jivesoftware.spark.chats
 		
 		//actually does the sending to the connection
 		public function transmitMessage(message:SparkMessage):void {
+			
 			SparkManager.connectionManager.sendMessage(jid, message.body);
 		}
 		

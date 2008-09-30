@@ -40,7 +40,7 @@ package com.jivesoftware.spark.chats
   	    private var recentlyChangedNicks:Object = null;
   	    
   	    public function SparkGroupChat(j:UnescapedJID)
-  	    {
+  	    { 
   	    	super(j);
   	    }
   	    
@@ -48,6 +48,8 @@ package com.jivesoftware.spark.chats
   	    {
   	    	room = MUCManager.manager.getRoom(j);
   	    	displayName = room.roomJID.toString();
+  	    	
+
   	    	if (roomPassword != null)
   	    		room.password = roomPassword;
 
@@ -74,7 +76,16 @@ package com.jivesoftware.spark.chats
   	    	room.addEventListener(RoomEvent.USER_DEPARTURE, handleUserDeparture);
   	    	room.addEventListener(RoomEvent.USER_KICKED, handleUserKicked);
   	    	room.addEventListener(RoomEvent.USER_BANNED, handleUserBanned);
+  	    	
+   	    	room.addEventListener(RoomEvent.SUBJECT_CHANGE,handleSubjectChange);   
 
+  	    }
+  	    
+  	    private function handleSubjectChange(event:RoomEvent):void
+  	    {
+  	    	var newSubject:String =
+  	    		 event.subject;
+  	        extraData = newSubject;
   	    }
   	    
   	    public override function get jid():UnescapedJID

@@ -54,6 +54,7 @@
 
 	<mx:Script>
 		<![CDATA[
+			import org.jivesoftware.xiff.core.UnescapedJID;
 			import mx.events.FlexEvent;
 			import com.jivesoftware.spark.chats.*;
 			import com.jivesoftware.spark.managers.*;
@@ -90,12 +91,37 @@
     		
 			public var inFocus:Boolean = true;
 			private var _activeRoom:ChatRoom = null;
+			private var _mainRoom:ChatRoom = null;
+			private var _roomHeader:DisplayObject;
+
 			
 			public function get activeRoom():ChatRoom
 			{
 				return _activeRoom;
 			}
 			
+			public function get mainRoom():ChatRoom
+			{
+				return _mainRoom;
+			}
+			
+			public function set roomHeader(header:DisplayObject):void
+			{
+				_roomHeader = header;
+				addChildAt(header,0);
+			}
+			
+			public function get roomHeader():DisplayObject
+			{
+				return _roomHeader;
+			}
+			
+			public function set mainRoom(room:ChatRoom):void
+			{
+				_mainRoom = room;
+				//SparkManager.chatMediator.
+			}
+
 			public function set activeRoom(r:ChatRoom):void
 			{
 				if(activeRoom && r.parent == chatFrame)
@@ -113,8 +139,14 @@
 			public function addChatUI(room:ChatRoom, activate:Boolean):Boolean
 			{
 				var added:Boolean = false;
+				if(chatFrame.getChildren().length == 0)
+				{
+			   		mainRoom = room;
+			 	}
+			 	
 				if(!chatFrame.contains(room))
 				{
+				
 					chatFrame.addChild(room);
 					added = true;
 					
@@ -124,37 +156,11 @@
 				chatFrame.validateDisplayList();
 			    if(activate || chatFrame.getChildren().length == 1)
 			    	activeRoom = room;
+
 			    return added;
 			}
 		
-//			public function createChatUI(evt:ChatEvent):void
-//			{
-//				var activate:Boolean = evt.activate;
-//				var chat:SparkChat = evt.chat;
-//				var child:ChatRoom = chat ? chat.ui as ChatRoom : null;
-//				
-//				//if we don't have an existing chat for this JID, we'll need to create one
-//				if(!child)
-//				{
-//					child = new ChatRoom();
-//					chat.ui = child;
-//					child.id = chat.jid.bareJID;
-//					child.chat = chat;
-//					child.label = chat.displayName;
-//					child.setStyle('paddingLeft', 5);
-//					child.setStyle('paddingBottom', 5);
-//					child.setStyle('paddingRight', 5);
-//					child.setStyle('paddingTop', 5);
-//					chatFrame.addChild(child);
-//					
-//				}
-//				
-//				setVisible(true);
-//				
-//				chatFrame.validateDisplayList();
-//			    if(inFocus && (activate || chatFrame.getChildren().length == 1))
-//			    	activeRoom = child;
-//			}
+
 			
 			public function init():void 
 			{
@@ -191,10 +197,8 @@
 
 		]]>
 	</mx:Script>
-		<mx:Fade id="fade"/>
-		<mx:Canvas height="50" width="100%" id="roomHeader" borderThickness="1" borderStyle="solid" backgroundColor="white" backgroundAlpha=".6" borderColor="black" cornerRadius="6">
-		<mx:Text text="Header"/>
-		</mx:Canvas>
+		<mx:Fade id="fade" duration="600"/>
+
    		 <flexlib:SuperTabNavigator
    		 	 id="chatFrame"
    		 	 width="100%"
