@@ -31,12 +31,13 @@
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
 	<mx:Script>
 		<![CDATA[
+			import mx.modules.Module;
+			import com.inquus.spark.viewers.ViewerEvent;
+			import com.inquus.spark.viewers.IViewer;
 			import com.inquus.spark.ViewerThumbNail;
 			import com.inquus.spark.vo.ViewerMessage;
 			import com.jivesoftware.spark.events.ChatMessageEvent;
-			import com.inquus.spark.event.ViewerEvent;
-			import com.inquus.spark.mediators.IViewerMediator;
-			import com.inquus.spark.event.ViewerEvent;
+			import com.inquus.spark.viewers.ViewerEvent;
 
 			import mx.core.UIComponent;
 			import org.jivesoftware.xiff.data.im.Contact;
@@ -82,22 +83,21 @@
 			private var selectedUser:Contact = null;
 			
 
-			private var _currentViewer:IViewerMediator;
+			private var _currentViewer:DisplayObject;
 			
-			public function set viewer(view:com.inquus.spark.mediators.IViewerMediator):void
+			public function set viewer(v:DisplayObject):void
 			{
-				_currentViewer = view;
-				callLater(setViewerInternal,[view]);
+				_currentViewer = v;
+				callLater(setViewerInternal);
 			}
-			public function get viewer():IViewerMediator
+			public function get viewer():DisplayObject
 			{
 				return _currentViewer;
 			}
-			private function setViewerInternal(view:IViewerMediator):void
+			private function setViewerInternal():void
 			{
-				_currentViewer.getContent().addEventListener(ViewerEvent.NEW_MESSAGE, handleViewerMessage);
+				_currentViewer.addEventListener(ViewerEvent.NEW_MESSAGE, handleViewerMessage);
 				viewerWindow.viewer = _currentViewer;
-				_currentViewer = view;
 			}
 
 			protected function clearTextBox():void
@@ -105,13 +105,11 @@
 				editor.textArea.text = "";
 			}
 			
-			protected function handleViewerMessage(event:com.inquus.spark.event.ViewerEvent):void
+			protected function handleViewerMessage(event:com.inquus.spark.viewers.ViewerEvent):void
 			{
 				var msgEvent:ChatMessageEvent = new ChatMessageEvent(ChatMessageEvent.VIEWER_MESSAGE);
-				msgEvent.message = event.message;
-				dispatchEvent(msgEvent);
-				
-		
+//				msgEvent.message = event.message;
+//				dispatchEvent(msgEvent);
 			}
 			
 			protected function setup():void
@@ -199,7 +197,7 @@
 			
 			protected function addShareMessageInternal(message:SparkMessage, viewerMessage:ViewerMessage):void
 			{
-				addMessage(message, _currentViewer.getThumbNail(viewerMessage));
+//				addMessage(message, _currentViewer.getThumbNail(viewerMessage));
 			}
 			
 			protected function runCommand(message:String):Boolean
@@ -306,12 +304,12 @@
 			
 			public function addViewerMessage(message:ViewerMessage):void
 			{
-				callLater(handleViewerMessageInternal, [message]);
+				//callLater(handleViewerMessageInternal, [message]);
 			}
 			
 			private function handleViewerMessageInternal(message:ViewerMessage):void
 			{
-				_currentViewer.handleMessage(message);
+				//_currentViewer.handleMessage(message);
 			}
 			
 			private function addSystemMessageInternal(body:String, time:Date = null):void

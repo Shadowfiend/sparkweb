@@ -799,17 +799,17 @@ package org.jivesoftware.xiff.core
 			if( !msg.deserialize( node ) ) {
 				throw new SerializationException();
 			}
-//			// ADDED in error handling for messages
-//			if( msg.type == Message.ERROR_TYPE ) {
-//				var exts:Array = msg.getAllExtensions();
-//				dispatchError( msg.errorCondition, msg.errorMessage, msg.errorType, msg.errorCode, exts.length > 0 ? exts[0] : null);
-//			}
-//			else
-//			{
+			// ADDED in error handling for messages
+			if( msg.type == Message.ERROR_TYPE ) {
+				var exts:Array = msg.getAllExtensions();
+				dispatchError( msg.errorCondition, msg.errorMessage, msg.errorType, msg.errorCode, exts.length > 0 ? exts[0] : null);
+			}
+			else
+			{
 				var event:MessageEvent = new MessageEvent();
 				event.data = msg;
 				dispatchEvent( event );		
-//			}
+			}
 	        return msg;
 		}
 		

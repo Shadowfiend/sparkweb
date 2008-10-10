@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
-<classEntry path="com.inquus.spark.event.CreateAccountEvent"/>
 <classEntry path="com.inquus.spark.event.ServiceEvent"/>
-<classEntry path="com.inquus.spark.event.ViewerEvent"/>
-<classEntry path="com.inquus.spark.managers.IManagerFactory"/>
-<classEntry path="com.inquus.spark.mediators.IChatMediator"/>
 <classEntry path="com.inquus.spark.mediators.IMediatorFactory"/>
-<classEntry path="com.inquus.spark.mediators.IViewerMediator"/>
-<classEntry path="com.inquus.spark.mediators.ViewerMediator"/>
-<classEntry path="com.inquus.spark.mediators.ViewerMediatorBase"/>
-<classEntry path="com.inquus.spark.vo.ViewerMessage"/>
-<classEntry path="com.jivesoftware.spark.chats.ChatUI"/>
-<classEntry path="com.jivesoftware.spark.chats.SparkChat"/>
-<classEntry path="com.jivesoftware.spark.chats.SparkGroupChat"/>
-<classEntry path="com.jivesoftware.spark.chats.SparkMessage"/>
-<classEntry path="com.jivesoftware.spark.events.ChatEvent"/>
-<classEntry path="com.jivesoftware.spark.events.ChatMessageEvent"/>
-<classEntry path="com.jivesoftware.spark.managers.AbstractSearchManager"/>
-<classEntry path="com.jivesoftware.spark.managers.AccountManager"/>
-<classEntry path="com.jivesoftware.spark.managers.ChatManager"/>
-<classEntry path="com.jivesoftware.spark.managers.ComposableAccountManager"/>
-<classEntry path="com.jivesoftware.spark.managers.ComposableManager"/>
-<classEntry path="com.jivesoftware.spark.managers.ConnectionManager"/>
-<classEntry path="com.jivesoftware.spark.managers.IManager"/>
 <classEntry path="com.jivesoftware.spark.managers.Localizator"/>
-<classEntry path="com.jivesoftware.spark.managers.MUCManager"/>
-<classEntry path="com.jivesoftware.spark.managers.PresenceManager"/>
-<classEntry path="com.jivesoftware.spark.managers.RoomSearchManager"/>
-<classEntry path="com.jivesoftware.spark.managers.SharedGroupsManager"/>
-<classEntry path="com.jivesoftware.spark.managers.SparkManager"/>
-<classEntry path="com.jivesoftware.spark.managers.StringUtils"/>
 <classEntry path="com.jivesoftware.spark.managers.UserSearchManager"/>
+<classEntry path="com.jivesoftware.spark.managers.AccountManager"/>
+<classEntry path="com.jivesoftware.spark.chats.SparkGroupChat"/>
+<classEntry path="com.jivesoftware.spark.managers.StringUtils"/>
+<classEntry path="com.jivesoftware.spark.managers.ComposableAccountManager"/>
+<classEntry path="com.jivesoftware.spark.managers.PresenceManager"/>
+<classEntry path="com.inquus.spark.viewers.IViewer"/>
+<classEntry path="com.jivesoftware.spark.managers.ChatManager"/>
+<classEntry path="com.jivesoftware.spark.managers.ConnectionManager"/>
+<classEntry path="com.jivesoftware.spark.chats.SparkMessage"/>
+<classEntry path="com.jivesoftware.spark.events.ChatMessageEvent"/>
+<classEntry path="com.inquus.spark.managers.IManagerFactory"/>
+<classEntry path="com.jivesoftware.spark.managers.ComposableManager"/>
+<classEntry path="com.inquus.spark.viewers.ViewerEvent"/>
 <classEntry path="com.jivesoftware.spark.managers.XMPPAccountManager"/>
+<classEntry path="com.inquus.spark.event.CreateAccountEvent"/>
+<classEntry path="com.jivesoftware.spark.managers.SharedGroupsManager"/>
+<classEntry path="com.jivesoftware.spark.events.ChatEvent"/>
+<classEntry path="com.jivesoftware.spark.chats.SparkChat"/>
+<classEntry path="com.jivesoftware.spark.chats.ChatUI"/>
+<classEntry path="com.inquus.spark.viewers.ViewerExtension"/>
+<classEntry path="com.inquus.spark.viewers.NewViewerEvent"/>
+<classEntry path="com.jivesoftware.spark.managers.SparkManager"/>
+<classEntry path="com.jivesoftware.spark.managers.IManager"/>
+<classEntry path="com.inquus.spark.vo.ViewerMessage"/>
+<classEntry path="com.inquus.spark.mediators.ViewerMediatorBase"/>
+<classEntry path="com.jivesoftware.spark.managers.MUCManager"/>
+<classEntry path="com.jivesoftware.spark.managers.RoomSearchManager"/>
+<classEntry path="com.inquus.spark.mediators.IChatMediator"/>
+<classEntry path="com.jivesoftware.spark.managers.AbstractSearchManager"/>
 </includeClasses>
 <includeResources>
 <resourceEntry destPath="locale/en.properties" sourcePath="locale/en.properties"/>
