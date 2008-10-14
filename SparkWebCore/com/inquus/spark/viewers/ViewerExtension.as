@@ -22,6 +22,8 @@ package com.inquus.spark.viewers
 		private var _viewerId:String;
 		//type is the type of message: update, new, close
 		private var _type:String;
+		//the name of the module - may not be necessary after refactoring
+		private var _moduleName:String;
 		private var _payload:Object;
 		
 		public function ViewerExtension(parent:XMLNode=null, extraParams:Object = null)
@@ -33,6 +35,7 @@ package com.inquus.spark.viewers
 				_viewerId = extraParams.viewerId as String;
 				_type = extraParams.type as String;
 				_payload = extraParams.payload as Object;
+				_moduleName = extraParams.moduleName as String;
 			}
 		}
 
@@ -58,6 +61,10 @@ package com.inquus.spark.viewers
 		{
 			return _payload;
 		}		
+		
+		public function get moduleName():String{
+			return _moduleName;
+		}
 	
 
 		public function serialize(parentNode:XMLNode):Boolean
@@ -66,6 +73,7 @@ package com.inquus.spark.viewers
 	
 			node.attributes['id'] = _viewerId;
 			node.attributes['type'] = _type;
+			node.attributes['moduleName'] = _moduleName;
 			
 			var serializer:SimpleXMLEncoder = new SimpleXMLEncoder(null);
 			serializer.encodeValue(_payload, new QName("openstudy", "payload"), node);
@@ -81,6 +89,7 @@ package com.inquus.spark.viewers
 			setNode(node);
 			_viewerId = node.attributes['id'];
 			_type = node.attributes['type'];
+			_moduleName = node.attributes['moduleName'];
 			_payload = new SimpleXMLDecoder(null).decodeXML(node.firstChild);
 			return true;
 		}
