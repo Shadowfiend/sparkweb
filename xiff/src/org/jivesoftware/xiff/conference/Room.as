@@ -393,9 +393,9 @@ package org.jivesoftware.xiff.conference
 		 *
 		 * @param msg The message to send
 		 */
-		public function sendMessageWithExtension( msg:Message, force:Boolean = false):void
+		public function sendMessageWithExtension( msg:Message):void
 		{
-			if( isActive || force) {
+			if( isActive) {
 				myConnection.send( msg );
 			}
 		}
