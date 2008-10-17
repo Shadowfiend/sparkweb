@@ -20,7 +20,7 @@
 
 <mx:HBox 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
-	doubleClick="ChatManager.sharedInstance.joinGroupChat(jid, true)" 
+	doubleClick="dispatchEvent(new CreateRoomEvent(CreateRoomEvent.CREATE,jid, true))" 
 	doubleClickEnabled="true" 
 	horizontalScrollPolicy="off" 
 	verticalScrollPolicy="off" 
@@ -37,6 +37,7 @@
 	implements="mx.managers.IFocusManagerComponent, mx.controls.listClasses.IListItemRenderer">
 <mx:Script>
 	<![CDATA[
+		import com.jivesoftware.spark.events.CreateRoomEvent;
 		import org.jivesoftware.xiff.core.UnescapedJID;
 		import com.jivesoftware.spark.managers.ChatManager;
 		import org.jivesoftware.xiff.bookmark.GroupChatBookmark;
