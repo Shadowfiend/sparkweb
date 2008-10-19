@@ -23,8 +23,11 @@ package com.inquus.spark.viewers
 		//type is the type of message: update, new, close
 		private var _type:String;
 		//the name of the module - may not be necessary after refactoring
+		private var _reload:Boolean;
 		private var _moduleName:String;
 		private var _payload:Object;
+		
+		
 		
 		public function ViewerExtension(parent:XMLNode=null, extraParams:Object = null)
 		{
@@ -36,6 +39,7 @@ package com.inquus.spark.viewers
 				_type = extraParams.type as String;
 				_payload = extraParams.payload as Object;
 				_moduleName = extraParams.moduleName as String;
+				_reload = extraParams['reload'] as Boolean == true ? true : false;
 			}
 		}
 
@@ -66,7 +70,15 @@ package com.inquus.spark.viewers
 			return _moduleName;
 		}
 	
-
+		public function get reload():Boolean
+		{
+			return _reload;
+		}
+		
+		public function set reload(r:Boolean):void
+		{
+			_reload = r;
+		}
 		public function serialize(parentNode:XMLNode):Boolean
 		{
 			var node:XMLNode = getNode();
@@ -74,6 +86,7 @@ package com.inquus.spark.viewers
 			node.attributes['id'] = _viewerId;
 			node.attributes['type'] = _type;
 			node.attributes['moduleName'] = _moduleName;
+			node.attributes['reload'] = reload ? 'y' : 'n';
 			
 			var serializer:SimpleXMLEncoder = new SimpleXMLEncoder(null);
 			serializer.encodeValue(_payload, new QName("openstudy", "payload"), node);
@@ -90,6 +103,7 @@ package com.inquus.spark.viewers
 			_viewerId = node.attributes['id'];
 			_type = node.attributes['type'];
 			_moduleName = node.attributes['moduleName'];
+			_reload = node.attributes['reload'] == 'y' ? true : false;
 			_payload = new SimpleXMLDecoder(null).decodeXML(node.firstChild);
 			return true;
 		}

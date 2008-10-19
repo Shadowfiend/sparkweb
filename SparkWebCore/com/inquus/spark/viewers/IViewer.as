@@ -6,7 +6,7 @@ package com.inquus.spark.viewers
 	public interface IViewer
 	{
 		//handle a viewer message
-		function receiveMessage(message:Object):void;
+		function receiveMessage(from:String, time:Date,message:Object):void;
 
 		
 		//close and clean up the viewer
