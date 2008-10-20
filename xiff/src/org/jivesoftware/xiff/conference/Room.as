@@ -236,6 +236,7 @@ package org.jivesoftware.xiff.conference
 	    private var myIsReserved:Boolean;
 	    private var mySubject:String;
 	    private var _anonymous:Boolean = true;
+	    private var _extraData:Object;
 //	    private var _fileRepo:RoomFileRepository;
 		
 		private var _active:Boolean;
@@ -253,6 +254,7 @@ package org.jivesoftware.xiff.conference
 		public function Room( aConnection:XMPPConnection=null )
 		{
 			setActive(false);
+			_extraData =  {};
 			if (aConnection)
 				connection = aConnection;
 		}
@@ -263,6 +265,26 @@ package org.jivesoftware.xiff.conference
 	        FormExtension.enable();
 			
 			return true;
+		}
+		
+		public function get extraAttributes():Object
+		{
+			return _extraData;
+		}
+		
+		public function set extraAttributes(attributes:Object):void
+		{
+			_extraData = attributes;
+		}
+		
+		public function setExtraAttribute(key:String, value:Object):void
+		{
+			_extraData[key] = value;
+		}
+		
+		public function getExtraAttribute(key:String):Object
+		{
+			return _extraData[key];
 		}
 		
 		/**
