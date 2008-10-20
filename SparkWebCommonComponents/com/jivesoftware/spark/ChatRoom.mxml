@@ -34,7 +34,6 @@
 			import mx.modules.Module;
 			import com.inquus.spark.viewers.ViewerEvent;
 			import com.inquus.spark.viewers.IViewer;
-			import com.inquus.spark.ViewerThumbNail;
 			import com.inquus.spark.vo.ViewerMessage;
 			import com.jivesoftware.spark.events.ChatMessageEvent;
 			import com.inquus.spark.viewers.ViewerEvent;
@@ -167,7 +166,7 @@
 				
 				callLater(addMessageInternal,[message, extra]);
 			}
-			public function addMessageInternal(message:SparkMessage, extra:UIComponent = null):void
+			public function addMessageInternal(message:SparkMessage, uiMessage:UIComponent = null):void
 			{
 				for each(var filter:* in displayFilters)
 				{
@@ -183,11 +182,21 @@
 						addSystemMessage(message.time.toLocaleDateString());
 				}
 				
-				history.addUserMessage(id, id, message.body, message.time, message.local ? (selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null, extra as ViewerThumbNail);
+				history.addUserMessage(id, id, message.body, message.time, message.local ? 
+					(selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null, uiMessage);
 				
 				if(!message.local)
 					increaseMessageCount();
 				lastMessage = message;
+			}
+			
+			public function addFeedNotification(ui:UIComponent, from:String, time:Date):void
+			{
+				isTyping = false;
+				if(!time)
+					time = new Date();		
+				history.addUserMessage(from, from, "feed updated", time, (selectedUser && from == selectedUser.displayName) ? "selected" : "user", ui);				
+				increaseMessageCount();		
 			}
 			
 			public function addShareMessage(message:SparkMessage, viewerMessage:ViewerMessage):void
@@ -338,7 +347,7 @@
 			    if(active) 
 				{	
 					clearMessageCount();
-					label = chat.displayName;
+					label;// = chat.displayName;
 					editor.focus();
 				}
 			}
@@ -423,6 +432,7 @@
 				id="history" 
 				height="{mainContentBox.height - topicBox.height}" 
 				borderStyle="solid" 
+				clipContent="false"
 				horizontalScrollPolicy="off"
 			    verticalScrollPolicy="auto" />
 			
