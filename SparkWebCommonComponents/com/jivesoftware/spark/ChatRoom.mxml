@@ -84,6 +84,8 @@
 
 			private var _currentViewer:DisplayObject;
 			
+			private var _feedComponent:DisplayObject;
+			
 			public function set viewer(v:DisplayObject):void
 			{
 				_currentViewer = v;
@@ -92,6 +94,17 @@
 			public function get viewer():DisplayObject
 			{
 				return _currentViewer;
+			}
+			
+			[Bindable]
+			public function get feedComponent():DisplayObject
+			{
+				return _feedComponent;
+			}
+			
+			public function set feedComponent(feedUI:DisplayObject):void
+			{
+				_feedComponent = feedUI;
 			}
 			private function setViewerInternal():void
 			{
@@ -111,6 +124,10 @@
 //				dispatchEvent(msgEvent);
 			}
 			
+			public function addFeedComponent(feedUI:UIComponent):void
+			{
+				viewerBox.addChild(feedUI);
+			}
 			protected function setup():void
 			{
 				occupantList.addEventListener("change", highlightUser);
@@ -137,6 +154,8 @@
 				});
 				setupDateChangeEvent();
 				_created = true;
+				if(_feedComponent)
+					viewerBox.addChild(_feedComponent);
 
 			}
 			
@@ -380,6 +399,19 @@
 				_isTyping = flag;
 			}
 			
+			private function toggleFeed():void
+			{
+				if(viewerBox.numChildren == 3)
+				{
+					viewerBox.removeChildAt(2);
+					feedLabel.text = 'Show Feed';
+					
+				}else{
+					viewerBox.addChild(_feedComponent);
+					feedLabel.text = 'Hide Feed';
+				} 
+			}
+			
 			[Bindable]
 			public function get isTyping():Boolean
 			{
@@ -405,7 +437,7 @@
 
     <!-- Add Top UI -->
    <mx:HDividedBox id="contentDivider" filters="{[topshadow]}" verticalScrollPolicy="off" horizontalScrollPolicy="off" x="0" y="0" height="82%" width="100%" horizontalGap="{chat is SparkGroupChat ? 10 : 0}">
- 		<mx:VDividedBox height="100%" width="250" verticalScrollPolicy="off" horizontalScrollPolicy="off">  
+  		<mx:VDividedBox height="100%" width="250" verticalScrollPolicy="auto" horizontalScrollPolicy="off">  
 		<mx:Canvas id="mainContentBox" width="100%" height="82%">
 			<mx:TextArea 
 				id="topicBox" 
@@ -431,17 +463,22 @@
 			    width="100%"
 				id="history" 
 				height="{mainContentBox.height - topicBox.height}" 
-				borderStyle="solid" 
-				clipContent="false"
+				borderStyle="solid"
 				horizontalScrollPolicy="off"
-			    verticalScrollPolicy="auto" />
+			    verticalScrollPolicy="on" />
 			
 		</mx:Canvas>
-		<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="18%" width="100%" />	
+		<jive:Editor enabled="{chat.room ? chat.room.isActive : true}" resetCompletion="resetCompletion()" completeWord="completeWord(event)" borderStyle="none" id="editor" bottom="0" height="130" width="100%" />	
  		</mx:VDividedBox>
- 		<inquus:ViewerWindow id="viewerWindow" width="100%" height="100%">
+ 		<mx:VBox id="viewerBox" verticalGap="0" width="100%" height="100%">
  			
- 		</inquus:ViewerWindow>
+
+ 			<inquus:ViewerWindow id="viewerWindow" width="100%" height="100%"/>
+    		<mx:ApplicationControlBar click="toggleFeed()" horizontalAlign="center" width="100%" visible="{feedComponent != null}" height="18" dock="false" paddingTop="0" paddingBottom="0">
+   				<mx:Label id="feedLabel" fontSize="10" text="Hide Feed" 
+   						/>
+   			</mx:ApplicationControlBar>	
+ 		</mx:VBox>
 		<mx:VDividedBox id="sidebarDivider" verticalScrollPolicy="off" horizontalScrollPolicy="off" height="100%" maxHeight="{contentDivider.height}" borderSides="right bottom" borderStyle="solid" width="{chat is SparkGroupChat ? 200 : 0}">
 			<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucControls" height="100%" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
 				<spark:ListGroup 

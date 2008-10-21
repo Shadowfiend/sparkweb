@@ -23,6 +23,8 @@
 	minWidth="100" 
 	minHeight="40" 
 	horizontalGap="0" 
+	horizontalScrollPolicy="off"
+	verticalScrollPolicy="off"
 	verticalGap="0">
 	<mx:Style>
    		.text { }
