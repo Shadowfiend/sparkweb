@@ -23,12 +23,10 @@
 	     xmlns:inquus="com.inquus.spark.*"
 	     width="100%"
 	     height="100%"
-	     borderStyle="none"
 	     verticalScrollPolicy="off"
 	     horizontalScrollPolicy="off"
 	     creationComplete="setup()"
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
-	  	 backgroundAlpha="0"
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
 	<mx:Script>
 		<![CDATA[
