@@ -322,7 +322,11 @@
 				chat.room.removeEventListener(RoomEvent.ROOM_JOIN, setupContextMenu);
 			}
 			
-			public function addSystemMessage(body:String, time:Date = null):void
+			public function addSystemMessage(body:String, time:Date = null):void {
+				callLater(addSystemMessageInternal,[body,time]);
+			}
+			
+			private function addSystemMessageInternal(body:String, time:Date = null):void
 			{
 				history.addSystemMessage(body,time,null);
 			}
@@ -394,8 +398,12 @@
 				return "<font color='#666666'>Topic:</font> <font color='#333333'>" + StringUtils.escapeHTML(text) + "</font>";
 			}
 			
-	
 			public function addNotification(text:String, color:String):void
+			{
+				callLater(addNotificationInternal,[text, color]);
+			}
+			
+			private function addNotificationInternal(text:String, color:String):void
 			{
 				history.addNotification(text, color);
 			}
@@ -435,6 +443,7 @@
 			    top="{topicBox.height}"
 			    width="100%"
 				id="history" 
+				creationComplete="dispatchEvent(new Event('room_initialized',true))"
 				height="{mainContentBox.height - topicBox.height}" 
 				borderStyle="solid"
 				horizontalScrollPolicy="off"
