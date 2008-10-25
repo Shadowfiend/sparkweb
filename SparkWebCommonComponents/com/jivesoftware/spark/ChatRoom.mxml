@@ -26,6 +26,7 @@
 	     verticalScrollPolicy="off"
 	     horizontalScrollPolicy="off"
 	     creationComplete="setup()"
+	     creationPolicy="all"
 	     icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
 	     implements="com.jivesoftware.spark.chats.ChatUI" xmlns:filts="flash.filters.*" xmlns:spark1="com.inquus.spark.*">
 	<mx:Script>
@@ -209,9 +210,16 @@
 			{
 				isTyping = false;
 				if(!time)
-					time = new Date();		
-				history.addUserMessage(from, from, "", time,  
-					from == SparkManager.me.displayName ? (selectedUser && from == selectedUser.displayName) ? "selected" : "user" : null, ui);				
+					time = new Date();
+				var highlight:String;
+				if(selectedUser != null){
+					if(from == selectedUser.displayName){
+						highlight = "selected";
+					}else{
+						highlight = "user";
+					}
+				}		
+				history.addUserMessage(from, from, "", time,highlight, ui);				
 				increaseMessageCount();		
 			}
 			
@@ -314,7 +322,8 @@
 				chat.room.removeEventListener(RoomEvent.ROOM_JOIN, setupContextMenu);
 			}
 			
-			public function addSystemMessage(body:String, time:Date = null):void {
+			public function addSystemMessage(body:String, time:Date = null):void
+			{
 				history.addSystemMessage(body,time,null);
 			}
 			
@@ -385,10 +394,12 @@
 				return "<font color='#666666'>Topic:</font> <font color='#333333'>" + StringUtils.escapeHTML(text) + "</font>";
 			}
 			
+	
 			public function addNotification(text:String, color:String):void
 			{
 				history.addNotification(text, color);
 			}
+			
 		]]>
 	</mx:Script>
 

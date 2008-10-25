@@ -6,7 +6,7 @@ package com.inquus.spark.viewers
 	public interface IViewer
 	{
 		//handle a viewer message
-		function receiveMessage(from:String, time:Date,message:Object):void;
+		function receiveMessage(message:Object,from:String = null,time:Date = null):void;
 
 		//actually play the resource in the viewer
 		function enable():void;
