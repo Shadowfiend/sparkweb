@@ -28,8 +28,10 @@
 	verticalScrollPolicy="off"
 	horizontalScrollPolicy="off"
 	creationComplete="setup()"
+	addedEffect="fade"
+	removedEffect="fade"
+	borderStyle="none"
 	icon="{getIcon(chat.presence, isTyping, unreadMessageCount)}"
-	backgroundColor="#FFFFFF"
 	implements="com.jivesoftware.spark.chats.ChatUI">
 	     
 	<mx:Script>
@@ -312,10 +314,12 @@
 		]]>
 	</mx:Script>
 
-    <mx:Canvas 
+	<mx:Fade id="fade" duration="500"/>
+    <spark:GradientCanvas 
 	    width="100%"
 	    height="100%"
 	    visible="true"
+	    styleName="room"
 	    verticalScrollPolicy="off"
 	    horizontalScrollPolicy="off"
 		top="0" 
@@ -328,6 +332,7 @@
 	    	selectionChanged="toggleTab()" 
 	    	id="tabs"
 	    	fontSize="10"
+	    	top="10"
 		    verticalScrollPolicy="off"
 	    	horizontalScrollPolicy="off"
 	    	width="{mainContainer.width}"/> 
@@ -338,9 +343,9 @@
 		    visible="true"
 		    verticalScrollPolicy="off"
 		    horizontalScrollPolicy="off"
-			backgroundColor="#FFFFFF"
+		    backgroundAlpha=".5"
 			focusEnabled="false" 
-			top="{tabs.height}" 
+			top="{tabs.height + 10}" 
 			left="0" 
 			right="0"
 		    id="chatContainer" 
@@ -351,7 +356,7 @@
 				id="history" 
 				height="{chatContainer.height - editor.height}" 
 				width="{chatContainer.width}"
-				borderStyle="solid" 
+				borderStyle="none" 
 				horizontalScrollPolicy="off"
 			    verticalScrollPolicy="on" />
 			    
@@ -377,6 +382,6 @@
 			<mx:LinkButton id="inviteButton" click="{occupantList.visible = false; inviteButton.visible = false; invitePane.visible = true; invitePane.rebuildCompletionList();}" label="Invite" color="#555555" textDecoration="underline" right="0" top="0"/>
 		</mx:Canvas>	
 	
-	</mx:Canvas>
+	</spark:GradientCanvas>
 
 </mx:Box>

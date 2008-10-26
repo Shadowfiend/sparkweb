@@ -38,6 +38,7 @@
  
 <mx:Script>
 	<![CDATA[
+		import com.jivesoftware.spark.events.CreateChatEvent;
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.managers.Localizator;
 		import com.jivesoftware.spark.managers.ChatManager;
@@ -48,7 +49,9 @@
 		
 		protected function startChat():void
 		{
-			ChatManager.sharedInstance.startChat(contact.jid, true);
+			
+			dispatchEvent(new CreateChatEvent(CreateChatEvent.CREATE,contact.jid,true,true,false));
+			//ChatManager.sharedInstance.startChat(contact.jid, true);
 		}
 		
 		public function set contact(inContact:Contact):void
