@@ -18,7 +18,7 @@
 -->
 
 
-<sparkComp:ColorShiftingPanel xmlns:mx="http://www.adobe.com/2006/mxml"
+<sparkComp:GradientCanvas xmlns:mx="http://www.adobe.com/2006/mxml"
 	 	  xmlns:gui="com.jivesoftware.spark.*" 
 	 	  xmlns:sparkComp="com.jivesoftware.spark.*"
 	 	  filters="{[new DropShadowFilter(0, 45, 0.0, 0.75, 6.0)]}"
@@ -26,10 +26,6 @@
 	 	  paddingBottom="10"
 	 	  paddingRight="10"
 	 	  paddingLeft="10"
-	 	  backgroundAlpha="0.4"
-	 	  borderThickness="1"
-	 	  headerHeight="0"
-	 	  layout="absolute"
 	 	  creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
@@ -98,8 +94,8 @@
 			public function showStartChat():void { }
 		]]>
 	</mx:Script>
-	
-    <gui:StatusBox id="statusBox" left="8" top="8" right="8" />
+    <mx:Label id="listLabel" top="5" left="5" text="Study Buddies"	color="white"/>
+    <gui:StatusBox id="statusBox" left="8" top="{8 + listLabel.height}" right="8" />
     
     <mx:Canvas  filters="{[new DropShadowFilter(0, 90, 0, 0.7, 8, 8)]}" 
     			clipContent="false" 
@@ -107,12 +103,12 @@
     			borderThickness="0.5" 
     			borderStyle="solid" 
     			cornerRadius="5" 
-    			backgroundAlpha="0.3" 
-    			backgroundColor="#DDDDDD"
+    			backgroundAlpha="0.7" 
+    			backgroundColor="#FFFFFF"
     			verticalScrollPolicy="off" 
     			horizontalScrollPolicy="off" 
     			focusEnabled="false" 
-    			top="{statusBox.height + 22}" 
+    			top="{statusBox.height + 35}" 
     			left="8" 
     			right="8"
     		    id="mainContainer" 
@@ -139,4 +135,4 @@
       		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.logout')}" icon="@Embed(source='/assets/images/close_dark.png')" mouseUp="SparkManager.logout()" />
     	</mx:HBox>
     </sparkComp:ContactListTabBar>
-</sparkComp:ColorShiftingPanel>
+</sparkComp:GradientCanvas>

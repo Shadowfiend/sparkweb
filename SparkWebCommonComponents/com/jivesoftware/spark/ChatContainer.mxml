@@ -29,9 +29,8 @@
 	xmlns:flexlib = "flexlib.containers.*"
 	xmlns:inquus = "com.inquus.spark.*"
 	xmlns:fc="com.jivesoftware.spark.components.resize.*"
-	showEffect="fade" 
+	addedToStage="fade" 
 	dropShadowEnabled="true"
-	styleName="room"
 	creationComplete="init()">	
 	
 	<mx:Style>
@@ -201,7 +200,7 @@
 		]]>
 	</mx:Script>
 	
-		<mx:Fade id="fade" duration="600"/>
+		<mx:Fade id="fade" duration="900"/>
 		
    		 <flexlib:SuperTabNavigator
    		 	 id="chatFrame"

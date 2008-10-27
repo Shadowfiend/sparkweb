@@ -469,6 +469,8 @@
 					collapsable="false" 
 					maxHeight="{mucControls.height}"
 					groupName="Participants" 
+					backgroundColor="white"
+					backgroundAlpha=".6"
 					id="occupantList"
 					left="0"
 					right="0"
