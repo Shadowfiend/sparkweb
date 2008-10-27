@@ -23,6 +23,8 @@
 	 	  xmlns:sparkComp="com.jivesoftware.spark.*"
 	 	  filters="{[new DropShadowFilter(0, 45, 0.0, 0.75, 6.0)]}"
 	 	  paddingTop="10"
+	 	  verticalScrollPolicy="off"
+	 	  horizontalScrollPolicy="off"
 	 	  paddingBottom="10"
 	 	  paddingRight="10"
 	 	  paddingLeft="10"
