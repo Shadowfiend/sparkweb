@@ -18,7 +18,7 @@
 -->
 
 
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="_init()">
+<mx:Canvas cornerRadius="12" xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="_init()">
 	<mx:Metadata><![CDATA[
 		[Event( name="messageCreated", type="com.jivesoftware.spark.events.EditorEvent" )]
 		[Event( name="completeWord", type="com.jivesoftware.spark.events.EditorEvent" )]
