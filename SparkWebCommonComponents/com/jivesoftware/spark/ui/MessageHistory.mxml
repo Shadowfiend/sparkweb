@@ -18,7 +18,7 @@
 -->
 
 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="0" horizontalGap="0" backgroundColor="white" creationComplete="init()">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="5"  horizontalAlign="center" horizontalGap="0" backgroundColor="white" creationComplete="init()">
 	<mx:Script><![CDATA[
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.ScrollWheelManager;
@@ -231,12 +231,12 @@
 			messageBox.addEventListener(FlexEvent.CREATION_COMPLETE, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(evt:ChildExistenceChangedEvent):void { messageBox.invalidateSize(); });
-			messageBox.percentWidth = 100;
+			messageBox.percentWidth = 95;
 			if(numChildren > 0)
 			{
 				var rule:HRule = new HRule();
 				rule.percentWidth = 100;
-				addChild(rule);
+				//addChild(rule);
 			}
 			addChild(messageBox);
 			

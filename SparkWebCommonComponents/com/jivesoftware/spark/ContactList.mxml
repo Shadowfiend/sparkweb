@@ -75,7 +75,7 @@
 					}
 				}
 				var sortedGroups:Array = getChildren().sort(sortGroup);
-				
+
 				//TODO: this is pretty sucky for performance. 
 				for(var i:uint = 0; i < sortedGroups.length; i++)
 				{

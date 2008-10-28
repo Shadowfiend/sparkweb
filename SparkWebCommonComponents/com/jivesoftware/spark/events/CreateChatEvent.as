@@ -17,5 +17,10 @@ package com.jivesoftware.spark.events
 			this.activate = activate;
 		}
 		
+		override public function clone():Event
+		{
+			return new CreateChatEvent(type,jid,activate,bubbles,cancelable);
+		}
+		
 	}
 }

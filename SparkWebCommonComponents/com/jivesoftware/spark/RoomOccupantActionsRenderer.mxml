@@ -25,8 +25,11 @@
 		verticalScrollPolicy="off" 
 	    horizontalScrollPolicy="off"
 	    color="#355491"
+	    backgroundColor="#ffffff"
+	    cornerRadius="12"
+	    borderStyle="solid"
 		width="100%"
-	    height="50"
+	    height="0"
 	    click="event.preventDefault(); event.stopImmediatePropagation();"
 	    doubleClick="event.preventDefault(); event.stopImmediatePropagation();"
 		verticalAlign="middle"
@@ -37,6 +40,7 @@
  
 <mx:Script>
 	<![CDATA[
+		import mx.managers.PopUpManager;
 		import org.jivesoftware.xiff.conference.Room;
 		import org.jivesoftware.xiff.conference.RoomOccupant;
 		import com.jivesoftware.spark.managers.SparkManager;
@@ -88,6 +92,8 @@
 		public function kickUser():void {
 			// TODO: Include reason for kick and also report errors when the kick fails (by listenening to RoomEvent.ADMIN_ERROR)
 			room.kickOccupant(contact.displayName, '');
+			
+			remove();
 		}
 		
 		public function banUser():void 
@@ -97,10 +103,15 @@
 			// TODO: Include reason for ban and also report errors when the ban fails (by listenening to RoomEvent.ADMIN_ERROR)
 
 			room.ban([contact.jid]);
+			
+			remove();
 		}
+		public function remove():void{
+			dispatchEvent(new Event("closed"));
+		}
+		
 	]]>
 </mx:Script>
-
 <mx:LinkButton enabled="{room.role == Room.MODERATOR_ROLE}" fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.groupchat.kick.user')}" click="kickUser()" />
 <mx:LinkButton enabled="{room.affiliation == Room.OWNER_AFFILIATION || room.affiliation == Room.ADMIN_AFFILIATION}" fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.groupchat.ban.user')}" click="banUser()" />
 

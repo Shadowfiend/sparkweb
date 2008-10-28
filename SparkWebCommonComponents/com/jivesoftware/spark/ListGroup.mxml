@@ -84,16 +84,20 @@
 		
 		public function set collapsed(flag:Boolean):void
 		{
-			_collapsed = flag;
-			if(_collapsed == false && navBox.dataProvider == null && dataProvider != null)
-			{
-				navBox.dataProvider = _dataProvider;
+			if(collapsable || flag == false){
+				_collapsed = flag;
+				if(_collapsed == false && navBox.dataProvider == null && dataProvider != null)
+				{
+					navBox.dataProvider = _dataProvider;
+				}
 			}
 		}
 		
 		[Bindable]
 		public function get collapsed():Boolean
 		{
+			if(!collapsable)
+				return false;
 			return _collapsed;
 		}
 		
@@ -151,7 +155,7 @@
 			_dataProvider = new ListCollectionView(provider);
 			dataProvider.filterFunction = defaultFilter;
 			dataProvider.refresh();
-			if(!collapsed && _dataProvider != null)
+			if(!collapsed && _dataProvider != null || !collapsable)
 		    	navBox.dataProvider = _dataProvider;
 		}
 		

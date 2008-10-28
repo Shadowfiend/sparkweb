@@ -40,6 +40,8 @@
  
 <mx:Script>
 	<![CDATA[
+		import com.jivesoftware.spark.events.CreateChatEvent;
+		import mx.managers.PopUpManager;
 		import org.jivesoftware.xiff.core.UnescapedJID;
 		import org.jivesoftware.xiff.conference.Room;
 		import mx.events.ListEvent;
@@ -176,14 +178,10 @@
 		
 		public function singleClicked(event:MouseEvent):void 
 		{
-			clickTimer = new Timer(350, 1);
-			clickTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function(evt:TimerEvent):void {
-				if(expanded)
-					close();
-				else
-					expand();
-			});
-			clickTimer.start();
+			if(expanded)
+				close();
+			else
+				expand();
 		}
 		
 		protected function cancelClickTimer(evt:FocusEvent=null):void 
@@ -257,7 +255,6 @@
 			
 			isSetup = true;
 			doubleClickEnabled = true;
-			addEventListener(MouseEvent.DOUBLE_CLICK, doubleClicked);
 			addEventListener(MouseEvent.CLICK, singleClicked);
 			addEventListener(FocusEvent.MOUSE_FOCUS_CHANGE, cancelClickTimer);
 			addEventListener(FocusEvent.KEY_FOCUS_CHANGE, cancelClickTimer);
@@ -343,7 +340,7 @@
 			return tt;
 		}
 		
-		public function expand():void 
+		public function expand():void
 		{
 			if(contact is RoomOccupant)
 			{
@@ -357,23 +354,71 @@
 				actionsPane = new BuddyActionsRenderer();
 			else
 				throw new Error("Unknown contact type");
-				
-			expanded = true;
-				
 			parent.setChildIndex(this, parent.numChildren - 1);
-
-			actionsPane.contact = contact;
-			actionsPane.setStyle("top", height);
-			actionsPane.setStyle("backgroundColor", getStyle("backgroundColor"));
-			addChildAt(actionsPane, 0);
+			if(contact is RoomOccupant){
+//				PopUpManager.addPopUp(actionsPane,this);
+//				PopUpManager.centerPopUp(actionsPane);
+//				actionsPane.x = actionsPane.x - 8 - this.width/2;
+//				actionsPane.y = actionsPane.y + actionsPane.height / 2 + 8;
+			}else{
+				
+				PopUpManager.addPopUp(actionsPane,this);
+				PopUpManager.centerPopUp(actionsPane);
+				actionsPane.x = actionsPane.x - 8;
+				actionsPane.y = actionsPane.y + actionsPane.height / 2 + 8;
+			}
 			
+			actionsPane.contact = contact;
+			actionsPane.addEventListener("closed",handleClose); 
+			actionsPane.addEventListener(CreateChatEvent.CREATE, createChat );
+			
+			PopUpManager.bringToFront(actionsPane);
+			//actionsPane.setStyle("top", height);
+			//actionsPane.setStyle("backgroundColor", getStyle("backgroundColor"));
+
+			expanded = true;
 		}
+		private function createChat(event:CreateChatEvent):void
+		{
+			dispatchEvent(event.clone() as CreateChatEvent);
+		}
+		
+		private function handleClose(event:Event):void
+		{
+			close();
+		}
+		
+//		public function expand():void 
+//		{
+//			if(contact is RoomOccupant)
+//			{
+//				actionsPane = new RoomOccupantActionsRenderer();
+//				var room:Room = (contact as RoomOccupant).room;
+//				if(room.role != Room.MODERATOR_ROLE && room.affiliation != Room.ADMIN_AFFILIATION && room.affiliation != Room.OWNER_AFFILIATION)
+//					return;
+//				(actionsPane as RoomOccupantActionsRenderer).room = room;
+//			}
+//			else if(contact is RosterItemVO)
+//				actionsPane = new BuddyActionsRenderer();
+//			else
+//				throw new Error("Unknown contact type");
+//				
+//			expanded = true;
+//				
+//			parent.setChildIndex(this, parent.numChildren - 1);
+//
+//			actionsPane.contact = contact;
+//			actionsPane.setStyle("top", height);
+//			actionsPane.setStyle("backgroundColor", getStyle("backgroundColor"));
+//			addChildAt(actionsPane, 0);
+//			
+//		}
 		
 		public function close():void 
 		{
-			if(!expanded)
-				return;
-			removeChild(actionsPane);
+			
+			actionsPane.removeEventListener("closed", handleClose);
+			PopUpManager.removePopUp(actionsPane);
 			expanded = false;
 		}
 

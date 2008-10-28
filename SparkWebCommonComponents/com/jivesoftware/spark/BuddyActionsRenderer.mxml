@@ -27,6 +27,9 @@
 	    color="#355491"
 		width="100%"
 	    height="110"
+	    backgroundColor="#ffffff"
+	    cornerRadius="12"
+	    borderStyle="solid"
 	    click="event.preventDefault(); event.stopImmediatePropagation();"
 	    doubleClick="event.preventDefault(); event.stopImmediatePropagation();"
 		verticalAlign="middle"
@@ -38,6 +41,7 @@
  
 <mx:Script>
 	<![CDATA[
+		import mx.managers.PopUpManager;
 		import com.jivesoftware.spark.events.CreateChatEvent;
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.managers.Localizator;
@@ -51,7 +55,12 @@
 		{
 			
 			dispatchEvent(new CreateChatEvent(CreateChatEvent.CREATE,contact.jid,true,true,false));
+			remove();
 			//ChatManager.sharedInstance.startChat(contact.jid, true);
+		}
+		
+		public function remove():void{
+			dispatchEvent(new Event("closed"));
 		}
 		
 		public function set contact(inContact:Contact):void
@@ -80,21 +89,25 @@
 		{
 			//TODO: CS profile viewing... will need some sort of useful abstraction here
 			ProfileWindow.showProfile(rosterItem);
+			remove();
 		}
 		
 		protected function changeGroup():void
 		{
 			GroupChangeWindow.showGroupChangeWindow(contact.jid);
+			remove();
 		}
 		
 		protected function requestAuth():void 
 		{
 			SparkManager.roster.requestSubscription(contact.jid);
+			remove();
 		} 
 		
 		protected function removeUser():void 
 		{
 			SparkManager.roster.removeContact(rosterItem);
+			remove();
 		}
 		
 		protected function renameUser():void
@@ -105,7 +118,6 @@
 </mx:Script>
 
 <mx:LinkButton fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.contact.start.chat')}" click="startChat()" />
-<mx:LinkButton fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.contact.rename')}" click="renameUser()" />
 <mx:LinkButton fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.contact.remove')}" click="removeUser()" />
 <mx:LinkButton fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.contact.view.profile')}" click="viewProfile()" />
 <mx:LinkButton fontWeight="normal" fontSize="11" label="{Localizator.getText('menu.contact.groups')}" click="changeGroup()" />
