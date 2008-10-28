@@ -125,16 +125,18 @@
     
     <mx:DropShadowFilter distance="0" angle="45" color="#000000" alpha="1.0" blurX="2.0" id="buttonShadowFilter"/>
     
-    <sparkComp:ContactListTabBar selectionChanged="setContactListMode()" id="tabs" left="13" right="8" bottom="8"> 
-    	<mx:HBox id="actionButtons" width="100%" paddingTop="7" horizontalGap="0" paddingRight="5">
+    <sparkComp:ContactListTabBar visible="false" selectionChanged="setContactListMode()" id="tabs" left="13" right="8" bottom="8"/> 
+    	<mx:HBox left="13" right="8" bottom="8" id="actionButtons" width="100%" paddingTop="7" horizontalGap="0" paddingRight="5">
     		<mx:Spacer width="100%"/>
     <!--		<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" toolTip="{Localizator.getText('label.start.chat')}" id="startChat" icon="@Embed(source='/assets/images/message_edit.png')" mouseUp="showStartChat()" />-->
-    		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('tooltip.find.usersearch')}" id="tabSearchButton" icon="@Embed(source='/assets/images/searchBuddy.png')" click="showUserSearch()" />
+    	
+
+	<mx:Button color="white"  visible="false" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('tooltip.find.usersearch')}" id="tabSearchButton" icon="@Embed(source='/assets/images/searchBuddy.png')" click="showUserSearch()" />
     		<mx:Spacer width="4"/>
-    		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="AddUserWindow.showAddUser()" />
       		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.server')}" visible="false" maxWidth="0" id="addServer" icon="@Embed(source='/assets/images/add_server.png')" mouseUp="AddServerWindow.showAddServer();" />
-      		<mx:Spacer width="4"/>
-      		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.logout')}" icon="@Embed(source='/assets/images/close_dark.png')" mouseUp="SparkManager.logout()" />
+      	
+      		<mx:Button color="white" visible="false" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.logout')}" icon="@Embed(source='/assets/images/close_dark.png')" mouseUp="SparkManager.logout()" />
+    		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="AddUserWindow.showAddUser()" />
+	<mx:Spacer width="4"/>
     	</mx:HBox>
-    </sparkComp:ContactListTabBar>
 </sparkComp:GradientCanvas>
