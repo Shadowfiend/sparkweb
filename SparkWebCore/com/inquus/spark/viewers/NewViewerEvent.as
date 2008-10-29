@@ -10,7 +10,7 @@ package com.inquus.spark.viewers
 		public var uri:String;
 		public var content_type:String;
 		public var image_url:String;
-		
+		public var rating:Number = 0;
 		public function NewViewerEvent(type:String,name:String= null, uri:String = null, 
 			description:String=null, contentType:String = null, image_url:String = null,bubbles:Boolean=false, cancelable:Boolean=false)
 		{
