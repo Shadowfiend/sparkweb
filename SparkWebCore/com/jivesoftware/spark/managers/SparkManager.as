@@ -22,6 +22,8 @@ package com.jivesoftware.spark.managers
 	import com.inquus.spark.mediators.IMediatorFactory;
 	import com.jivesoftware.spark.*;
 	
+	import mx.core.UIComponent;
+	
 	import org.jivesoftware.xiff.bookmark.BookmarkManager;
 	import org.jivesoftware.xiff.conference.InviteListener;
 	import org.jivesoftware.xiff.data.im.RosterItemVO;
@@ -181,6 +183,7 @@ package com.jivesoftware.spark.managers
 			return _errorHandler;
 		}
 		
+	
 		//handler should be a function that takes a String for the error name, a String for the error message, and a boolean indicating whether the error is fatal or not
 		public static function set errorHandler(handler:Function):void
 		{

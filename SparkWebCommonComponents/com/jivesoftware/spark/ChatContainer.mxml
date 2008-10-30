@@ -175,7 +175,7 @@
 				
 				//chatFrame.closePolicy = "close_always";
 				
-				(_roomHeader as UIComponent).height = 60;
+				(_roomHeader as UIComponent).height = 66;
 				addChildAt(_roomHeader,0);			
 				addChatUI(mainRoom,true);	
 				

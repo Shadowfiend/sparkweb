@@ -96,25 +96,27 @@
 			public function showStartChat():void { }
 		]]>
 	</mx:Script>
+	
+	<gui:GradientCanvas height="32" id="header" width="100%" styleName="buddyListHeader">
+		
+	
     <mx:Label id="listLabel" top="5" left="5" text="Study Buddies"	color="white"/>
-    <gui:StatusBox id="statusBox" left="8" top="{8 + listLabel.height}" right="8" />
     
+ 	</gui:GradientCanvas>
+
+    <gui:StatusBox id="statusBox" width="{this.width}"  top="{header.height - 6}"  />   
     <mx:Canvas  filters="{[new DropShadowFilter(0, 90, 0, 0.7, 8, 8)]}" 
     			clipContent="false" 
-    			borderColor="#CCCCCC" 
-    			borderThickness="0.5" 
-    			borderStyle="solid" 
-    			cornerRadius="5" 
-    			backgroundAlpha="0.7" 
-    			backgroundColor="#FFFFFF"
     			verticalScrollPolicy="off" 
     			horizontalScrollPolicy="off" 
     			focusEnabled="false" 
+    			styleName="buddyList"
     			top="{statusBox.height + 35}" 
     			left="8" 
     			right="8"
     		    id="mainContainer" 
     			bottom="{tabs.height + 8}">
+
     	<mx:HBox horizontalGap="0" right="4" left="4" top="4" maxHeight="{contacts.visible ? NaN : 0}" backgroundColor="white" id="searchContainer">
 			<mx:TextInput  id="search" width="100%" toolTip="{Localizator.getText('tooltip.find.contacts')}" styleName="defaultStyle" change="contacts.searchString = event.target.text" />
 			<mx:LinkButton id="searchButton" textAlign="center" toolTip="{Localizator.getText('tooltip.find.usersearch')}" width="22" height="22" cornerRadius="0" click="showUserSearch()" icon="@Embed(source='/assets/images/tiny-search.png')"/>
