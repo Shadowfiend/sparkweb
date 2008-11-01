@@ -204,8 +204,7 @@
 		
 		public function loadVCard(rosterItem:RosterItemVO):void 
 		{
-			//also load any extra information from  Parent applications
-			dispatchEvent(new Event("rosterInfoRequested",true, false));
+
 			var card:VCard = VCard.getVCard(SparkManager.connectionManager.connection, rosterItem)
 			if(card.avatar)
 			{
@@ -250,7 +249,8 @@
 				updateModeratorStatus();
 				
 				addListeners();
-					
+							//also load any extra information from  Parent applications
+				dispatchEvent(new Event("rosterInfoRequested",true, false));	
 				if(rosterItem && rosterItem.online)
 					loadVCard(rosterItem);
 				dispatchEvent(new Event("dataChanged"));

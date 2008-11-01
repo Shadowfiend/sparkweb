@@ -121,7 +121,7 @@
 			<mx:TextInput  id="search" width="100%" toolTip="{Localizator.getText('tooltip.find.contacts')}" styleName="defaultStyle" change="contacts.searchString = event.target.text" />
 			<mx:LinkButton id="searchButton" textAlign="center" toolTip="{Localizator.getText('tooltip.find.usersearch')}" width="22" height="22" cornerRadius="0" click="showUserSearch()" icon="@Embed(source='/assets/images/tiny-search.png')"/>
 		</mx:HBox>
-		<gui:ContactList id="contacts" height="{mainContainer.height - (searchContainer.height + 8 + 4)}" top="{searchContainer.height + 8}" left="4" right="4"/>
+		<gui:ContactList backgroundColor="#FFFFFF" id="contacts" height="{mainContainer.height - (searchContainer.height + 8 + 4)}" top="{searchContainer.height + 8}" left="4" right="4"/>
     	<gui:MUCList top="{searchContainer.height + 8}" height="{mainContainer.height - (searchContainer.height + 8 + 4)}" left="4" right="4" bottom="4" id="conferences" visible="false"/>
     </mx:Canvas>
     
