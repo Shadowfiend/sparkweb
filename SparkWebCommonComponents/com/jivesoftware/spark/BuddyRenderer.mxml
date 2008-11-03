@@ -250,7 +250,7 @@
 				
 				addListeners();
 							//also load any extra information from  Parent applications
-				dispatchEvent(new Event("rosterInfoRequested",true, false));	
+				
 				if(rosterItem && rosterItem.online)
 					loadVCard(rosterItem);
 				dispatchEvent(new Event("dataChanged"));
@@ -296,6 +296,7 @@
 				avatarImage.source = img is ByteArray ? img as ByteArray : img.loaderInfo.bytes
 			else
 				avatarImage.source = dummyIcon;
+			
 		}
 		
 		public function set changingName(flag:Boolean):void { _changingName = flag; }

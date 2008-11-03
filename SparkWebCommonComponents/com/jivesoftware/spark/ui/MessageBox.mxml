@@ -18,17 +18,36 @@
 -->
 
 <mx:VBox creationPolicy="all" styleName="chatMessage" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
-	verticalScrollPolicy="off" horizontalScrollPolicy="off" width="90%" verticalGap="0" horizontalGap="0" >
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" verticalGap="0" horizontalGap="0" >
 	<mx:Style>
    		.username { font-weight:bold;}
 	</mx:Style>
 	<mx:Script><![CDATA[
+		import mx.controls.HRule;
 		import mx.core.UIComponent;
 		import mx.events.FlexEvent;
 		import mx.events.ChildExistenceChangedEvent;
 		import mx.controls.TextArea;
+		
 		private var _userId:String;
 		private var _type:String;
+		
+		private var _userWidget:UIComponent;
+		
+		public function set userWidget(widget:UIComponent):void
+		{
+			_userWidget = widget;
+			if(_userWidget != null)
+			{
+				username_container.removeChild(username_label);
+				username_container.addChild(_userWidget);
+			}
+		}
+		
+		public function get userWidget():UIComponent
+		{
+			return _userWidget;
+		}
 		
 		public function set userId(userId:String):void {
 			this._userId = userId;
@@ -58,13 +77,20 @@
 		public function addMessage(message:String, date:Date, styleName:String = "text", dateStyleName:String = null, extra:UIComponent = null):void {
 			var messageArea:MessageElement = new MessageElement();
 			messageArea.styleName = styleName;
-			if(dateStyleName)
-				messageArea.dateStyleName = dateStyleName;
+
+			if(message_list.numChildren > 0)
+			{
+				var rule:HRule = new HRule();
+				rule.percentWidth = 100;
+				message_list.addChild(rule);
+			}
 			message_list.addChild(messageArea);	
+
 			messageArea.text = message;
 			messageArea.date = date;
 			if(extra)
 				messageArea.addChild(extra);
+			
 		}
 		
 		public function get messageElements():Array
@@ -73,13 +99,14 @@
 		}
 		
 		public function setMessageHighlight(usernameColor:String, messageColor:String):void {
-			username_container.setStyle("backgroundColor", (!usernameColor ? "#F5F6FB" : usernameColor));
+			username_container.setStyle("backgroundColor", messageColor);
 			message_list.setStyle("backgroundColor", messageColor);
+			setStyle("borderColor",messageColor);
 		}
 	]]></mx:Script>
-	<mx:Canvas id="username_container" height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" backgroundColor="#F5F6FB">
-		<mx:Label id="username_label" truncateToFit="true" color="{type == 'user' ? 0x3152A6 : 0x454857}" styleName="username" top="10" bottom="10" textAlign="left" width="100%"/>
+	<mx:Canvas backgroundAlpha=".1" backgroundColor="#ebebeb" id="username_container" cornerRadius="8" borderStyle="none" height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+		<mx:Label id="username_label" truncateToFit="true" color="#000000" styleName="username" top="5" bottom="5" textAlign="left" width="100%"/>
 	</mx:Canvas>
-	<mx:VBox id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="3" verticalScrollPolicy="off" paddingTop="10" paddingBottom="10" paddingLeft="2">
+	<mx:VBox borderStyle="none" cornerRadius="8" id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="0" verticalScrollPolicy="off" paddingTop="2" paddingBottom="2" backgroundColor="#ebebeb" paddingRight="0" paddingLeft="0">
 	</mx:VBox>
 </mx:VBox>

@@ -21,7 +21,7 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
 	width="100%" 
 	minWidth="100" 
-	minHeight="40" 
+	minHeight="20" 
 	horizontalGap="0" 
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
@@ -85,8 +85,8 @@
 	]]></mx:Script>
 	
     <mx:Iris id="irisIn" duration="300" showTarget="false"/>
-	<mx:HBox width="100%" minWidth="100" minHeight="15" horizontalGap="0" verticalGap="0">
+	<mx:HBox width="100%" minWidth="100" minHeight="10" horizontalGap="0" verticalGap="0">
 		<mx:Text filters="{selected ? [selectedFilter] : []}" id="message" selectable="true" width="100%" styleName="text" />
-		<mx:Label id="time_label" visible="{showdate}" width="60" styleName="{dateStyleName}" textAlign="right" text="{SimpleDateFormatter.formatDate(_date, timeFormat)}" />
+		<mx:Label id="time_label" visible="{showdate}" width="60" styleName="#000000" textAlign="right" text="{SimpleDateFormatter.formatDate(_date, timeFormat)}" />
 	</mx:HBox>
 </mx:VBox>

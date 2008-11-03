@@ -18,7 +18,7 @@
 -->
 
 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="5"  horizontalAlign="center" horizontalGap="0" backgroundColor="white" creationComplete="init()">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="3" paddingLeft="2" paddingRight="2" horizontalAlign="center" horizontalGap="0" backgroundColor="white" creationComplete="init()">
 	<mx:Script><![CDATA[
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.ScrollWheelManager;
@@ -33,7 +33,7 @@
 		private var scrollTimer:Timer = new Timer(100, 1);
 	
 		private var _userMessageHighlight:Object = {
-			user: ["#E9F1FB", "#F2F9FF"],
+			user: ["#9fcef1", "#9fcef1"],
 			selected: ["#F7F8E1", "#FFFFDB"]
 		}
 		
@@ -182,13 +182,16 @@
 			_currentMessageBox.addMessage(messageText, messageDate ? messageDate : new Date(), "system");
 		}
 		
-		public function addUserMessage(userId:String, username:String, messageText:String, messageDate:Date, type:String = null, uiMessage:UIComponent = null):void {
+		public function addUserMessage(userId:String, username:String, messageText:String, messageDate:Date, 
+			type:String = null, uiMessage:UIComponent = null, userWidget:UIComponent = null):void {
+				
 			activityHistory.unshift(username);
 			if(!_currentMessageBox || _currentMessageBox.type == "system" || _currentMessageBox.userId != userId) {
 				_currentMessageBox = _createMessageBox();
 				_currentMessageBox.userId = userId;
 				_currentMessageBox.username = username;
 				_currentMessageBox.type = type;
+				_currentMessageBox.userWidget = userWidget;
 			}
 			
 			if(_userMessageHighlight[type]) {
@@ -220,6 +223,7 @@
 					box.setMessageHighlight(userColor, messageColor);
 				}
 			}
+
 		}
 		
 		private function _createMessageBox():MessageBox {
@@ -231,13 +235,8 @@
 			messageBox.addEventListener(FlexEvent.CREATION_COMPLETE, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(evt:ChildExistenceChangedEvent):void { messageBox.invalidateSize(); });
-			messageBox.percentWidth = 95;
-			if(numChildren > 0)
-			{
-				var rule:HRule = new HRule();
-				rule.percentWidth = 100;
-				//addChild(rule);
-			}
+			messageBox.percentWidth = 100;
+
 			addChild(messageBox);
 			
 			return messageBox;

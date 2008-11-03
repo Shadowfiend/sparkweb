@@ -495,11 +495,6 @@
 					top="0"/>
 			</mx:Canvas>
 			
-			<!--<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off" id="mucFiles" height="150" maxHeight="{contentDivider.height}" borderSides="right left" borderStyle="solid" width="100%">
-				<spark:ListGroup headerHeight="25" headerFontSize="13" headerFontColors="{['#666666', '#333333']}" borderStyle="none" alternatingItemColors="{[0xDDDDDD, 0xEEEEEE]}" collapsable="false" maxHeight="{mucControls.height}" verticalScrollPolicy="auto" groupName="Recent Files" id="fileList" dataProvider="{chat.files ? chat.files : null}"/>
-				<spark:MUCUploadPane visible="false" id="uploadPane" creationComplete="{uploadPane.addEventListener('close', function(evt:*):void {uploadPane.visible = false; fileList.visible = true; uploadButton.visible = true;});}" width="{mucControls.width}" room="{chat.room}"/>
-				<mx:LinkButton id="uploadButton" click="{fileList.visible = false; uploadButton.visible = false; uploadPane.visible = true;}" label="Upload" color="#555555" textDecoration="underline" right="0" top="0"/>				
-			</mx:Canvas>-->
 		</mx:VDividedBox>
 	
 	</mx:HDividedBox>
