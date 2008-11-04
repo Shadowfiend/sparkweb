@@ -18,7 +18,7 @@
 -->
 
 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="3" paddingLeft="2" paddingRight="2" horizontalAlign="center" horizontalGap="0" backgroundColor="white" creationComplete="init()">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="on" clipContent="true" verticalGap="5" paddingLeft="2" paddingRight="2" horizontalAlign="center" horizontalGap="0" backgroundColor="white" creationComplete="init()">
 	<mx:Script><![CDATA[
 		import com.jivesoftware.spark.managers.SparkManager;
 		import com.jivesoftware.spark.ScrollWheelManager;
@@ -33,8 +33,8 @@
 		private var scrollTimer:Timer = new Timer(100, 1);
 	
 		private var _userMessageHighlight:Object = {
-			user: ["#9fcef1", "#9fcef1"],
-			selected: ["#F7F8E1", "#FFFFDB"]
+			user: ["#68b6f1", "#68b6f1"],
+			selected: ["#f9df00", "#f9df00"]
 		}
 		
 		private var _currentMessageBox:MessageBox;
@@ -235,7 +235,7 @@
 			messageBox.addEventListener(FlexEvent.CREATION_COMPLETE, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(evt:ChildExistenceChangedEvent):void { messageBox.invalidateSize(); });
-			messageBox.percentWidth = 100;
+			messageBox.percentWidth = 95;
 
 			addChild(messageBox);
 			

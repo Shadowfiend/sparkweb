@@ -198,8 +198,8 @@
 						addSystemMessage(message.time.toLocaleDateString());
 				}
 				
-				history.addUserMessage(id, id, message.body, message.time, message.local ? 
-					(selectedUser && id == selectedUser.displayName) ? "selected" : "user" : null, null);
+				history.addUserMessage(id, id, message.body, message.time, 
+					(selectedUser && id == selectedUser.displayName) ? "selected" : (id == SparkManager.me.displayName) ? null : "user", null);
 				
 				if(!message.local)
 					increaseMessageCount();
