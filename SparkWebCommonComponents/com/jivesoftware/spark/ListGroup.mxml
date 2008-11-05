@@ -147,6 +147,19 @@
 		    	dataProvider.refresh();
 		}
 		
+		private var _buddyRenderer:IFactory = new ClassFactory(com.jivesoftware.spark.BuddyRenderer); 
+		
+		
+		public function set buddyRenderer(factory:IFactory):void
+		{
+			_buddyRenderer = factory;
+		}
+		
+		[Bindable]
+		public function get buddyRenderer():IFactory
+		{
+			return _buddyRenderer;
+		}
 		public function set dataProvider(provider:ListCollectionView):void
 		{
 			if(!provider)
@@ -186,8 +199,7 @@
 </mx:HBox>
 <mx:List
     borderStyle="none"
-	visible="{(!collapsed || filter != '') &amp;&amp; visible}"
-    maxHeight="{navBox.visible ? maxHeight - innerBox.height : 0}" 
+	visible="{(!collapsed || !collapsable)}"
 	width="100%" 
     paddingBottom="0"
     paddingTop="0"
@@ -196,7 +208,7 @@
     variableRowHeight="false"
     verticalScrollPolicy="auto"
     rowCount="{navBox.dataProvider != null ? navBox.dataProvider.length : 0}"
-    itemRenderer="com.jivesoftware.spark.BuddyRenderer"
+    itemRenderer="{buddyRenderer}"
 	id="navBox" />
 </mx:VBox>
 
