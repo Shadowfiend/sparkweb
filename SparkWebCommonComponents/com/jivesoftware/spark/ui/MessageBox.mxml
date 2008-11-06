@@ -18,10 +18,10 @@
 -->
 
 <mx:VBox creationPolicy="all" borderColor="#ebebeb" styleName="chatMessage" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
-	verticalScrollPolicy="off" horizontalScrollPolicy="off" verticalGap="0" horizontalGap="0" fontFamily="Lucida Grande, Lucida Sans, Myriad Pro, Arial, sans serif" fontSize="9" >
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" verticalGap="0" horizontalGap="0" fontFamily="myLucida" fontSize="10" >
 	<mx:Style>
-   		.username { font-weight:bold; color:#959595;}
-   		.date { font-weight:normal; color:#959595;}
+   		.username { font-weight:bold; color:#3e3e3e;}
+   		.date {  font-weight:bold; color:#7f7f7f; }
 	</mx:Style>
 	<mx:Script><![CDATA[
 		import com.inquus.spark.ChatSeparator;
@@ -122,9 +122,9 @@
 		}
 	]]></mx:Script>
 	<mx:HBox backgroundAlpha="1" paddingBottom="2" height="16" backgroundColor="#dbdbdb" id="username_container" borderThickness="0" cornerRadius="12" borderStyle="solid" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
-		<mx:Label paddingLeft="5" id="username_label" truncateToFit="true" color="#000000" styleName="username" top="0" bottom="0" textAlign="left"/>
+		<mx:Label paddingLeft="5" id="username_label" truncateToFit="true" styleName="username" top="0" bottom="0" textAlign="left"/>
 		<mx:Spacer width="100%"/>
-		<mx:Label id="time_label" truncateToFit="false" visible="true" width="60" styleName="date" textAlign="right" text="{SimpleDateFormatter.formatDate(date, MessageElement.timeFormat)}" />
+		<mx:Label id="time_label" truncateToFit="false" visible="true" width="60" paddingRight="3" styleName="date" textAlign="right" text="{SimpleDateFormatter.formatDate(date, MessageElement.timeFormat)}" />
 	</mx:HBox>
 	<mx:VBox paddingLeft="5" borderStyle="none" backgroundAlpha=".1" id="message_list" childAdd="dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.CHILD_ADD));" height="100%" width="100%" verticalGap="-4" verticalScrollPolicy="off" paddingTop="0" paddingBottom="0" backgroundColor="#ebebeb" paddingRight="0">
 	</mx:VBox>

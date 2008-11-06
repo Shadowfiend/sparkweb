@@ -27,7 +27,7 @@
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
 	verticalGap="0"
-	fontFamily="Lucida Grande, Lucida Sans, Myriad Pro, Arial, sans serif" fontSize="10">
+	fontFamily="myLucida" fontSize="10">
 	<mx:Style>
    		.text { }
    		.system {font-style: italic; color: #BBBBBB;}

@@ -38,10 +38,11 @@ package com.jivesoftware.spark.chats
   	    protected var _room:Room;
   	    private var roomPassword:String = null;
   	    private var recentlyChangedNicks:Object = null;
-  	    
-  	    public function SparkGroupChat(j:UnescapedJID)
+  	    private var _joinExtensions:Array;
+  	    public function SparkGroupChat(j:UnescapedJID, joinExtensions:Array = null)
   	    { 
   	    	super(j);
+  	    	_joinExtensions = joinExtensions;
   	    }
   	    
   	    public override function setup(j:UnescapedJID):void
@@ -61,7 +62,7 @@ package com.jivesoftware.spark.chats
   	    	room.addEventListener(RoomEvent.MAX_USERS_ERROR, handleMaxUsersError);
   	    	room.addEventListener(RoomEvent.LOCKED_ERROR, handleLockedError);
   	    	
-  	    	if(!room.join()) {
+  	    	if(!room.join(false,_joinExtensions)) {
   	    		dispatchEvent(new Event("joinFailed"));
   	    		return;
   	    	}

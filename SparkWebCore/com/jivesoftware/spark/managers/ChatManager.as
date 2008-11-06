@@ -52,13 +52,13 @@ package com.jivesoftware.spark.managers
 		 * @param activate whether the chat should become the active chat
 		 * @return the SparkGroupChat that was created, or null
 		 */
-		public function joinGroupChat(jid:UnescapedJID, activate:Boolean = true, password:String = null):SparkGroupChat
+		public function joinGroupChat(jid:UnescapedJID, activate:Boolean = true, password:String = null, joinExtensions:Array = null):SparkGroupChat
 		{
 			if(!jid)
 				return null;
 			var chat:SparkGroupChat = getChat(jid) as SparkGroupChat;
 			if(!chat)
-				chat = new SparkGroupChat(jid);
+				chat = new SparkGroupChat(jid,joinExtensions );
 				
 			chats[jid.bareJID] = chat;
 				
