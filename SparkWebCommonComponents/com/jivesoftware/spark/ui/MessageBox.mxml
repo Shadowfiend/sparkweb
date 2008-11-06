@@ -89,12 +89,14 @@
 				sep.showdate = date != null;
 				message_list.addChild(sep);
 			}
+			if(extra)
+				messageArea.addChild(extra);
 			message_list.addChild(messageArea);	
+
 
 			messageArea.text = message;
 			
-			if(extra)
-				messageArea.addChild(extra);
+
 			
 		}
 		
