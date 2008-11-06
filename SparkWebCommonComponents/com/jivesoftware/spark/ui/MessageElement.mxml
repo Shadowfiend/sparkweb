@@ -23,9 +23,11 @@
 	minWidth="100" 
 	minHeight="20" 
 	horizontalGap="0" 
+	y="-10"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off"
-	verticalGap="0">
+	verticalGap="0"
+	fontFamily="Lucida Grande, Lucida Sans, Myriad Pro, Arial, sans serif" fontSize="10">
 	<mx:Style>
    		.text { }
    		.system {font-style: italic; color: #BBBBBB;}
@@ -66,27 +68,10 @@
 			return message.htmlText;
 		}
 		
-		public function set date(date:Date):void {
-			this._date = date;
-		}
-		
-		public function get date():Date {
-			return this._date;
-		}
-		
-		public function set showdate(show:Boolean):void {
-			this._showdate = show;
-		}
-		
-		[Bindable]
-		public function get showdate():Boolean {
-			return this._showdate;
-		}
+
 	]]></mx:Script>
 	
     <mx:Iris id="irisIn" duration="300" showTarget="false"/>
-	<mx:HBox width="100%" minWidth="100" minHeight="10" horizontalGap="0" verticalGap="0">
-		<mx:Text fontFamily="Lucida Grande, Lucida Sans, Myriad Pro, Arial, sans serif" fontSize="10" filters="{selected ? [selectedFilter] : []}" id="message" color="#000000" selectable="true" width="100%"  />
-		<mx:Label id="time_label" visible="{showdate}" width="60" styleName="#000000" textAlign="right" text="{SimpleDateFormatter.formatDate(_date, timeFormat)}" />
-	</mx:HBox>
+
+	<mx:Text  filters="{selected ? [selectedFilter] : []}" id="message" color="#000000" selectable="true" width="100%"  />
 </mx:VBox>

@@ -83,7 +83,7 @@
 				showlabels = false;
 			}
 			else {
-				messageArea.showdate = false;
+				//messageArea.showdate = false;
 			}
 			if(dateStyleName)
 				messageArea.dateStyleName = dateStyleName;

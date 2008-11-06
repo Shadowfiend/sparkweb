@@ -33,7 +33,7 @@
 		private var scrollTimer:Timer = new Timer(100, 1);
 	
 		private var _userMessageHighlight:Object = {
-			user: ["#68b6f1", "#68b6f1"],
+			user: ["#b5d5ff", "#b5d5ff"],
 			selected: ["#f9df00", "#f9df00"]
 		}
 		
@@ -46,6 +46,7 @@
 		protected function init():void
 		{
 			ScrollWheelManager.registerForScrollEvents(this);
+			verticalScrollBar.maxScrollPosition = 100;
 	/*		stage.addEventListener(KeyboardEvent.KEY_DOWN, function(evt:KeyboardEvent):void {
 				//FIXME: this dependency is fragile, but we aren't getting keyboard events from the history
 				if(evt.target is SuperTabNavigator)
@@ -61,7 +62,7 @@
 					}
 				}
 			});*/
-			scrollTimer.addEventListener(TimerEvent.TIMER_COMPLETE, _adjustHistory);
+			scrollTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function(event:Event){callLater(_adjustHistory);});
 			callLater(_adjustHistory, [true]);
 		}
 		
@@ -188,6 +189,7 @@
 			activityHistory.unshift(username);
 			if(!_currentMessageBox || _currentMessageBox.type == "system" || _currentMessageBox.userId != userId) {
 				_currentMessageBox = _createMessageBox();
+				_currentMessageBox.date = messageDate;
 				_currentMessageBox.userId = userId;
 				_currentMessageBox.username = username;
 				_currentMessageBox.type = type;
@@ -235,15 +237,14 @@
 			messageBox.addEventListener(FlexEvent.CREATION_COMPLETE, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, queueScroll);
 			messageBox.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(evt:ChildExistenceChangedEvent):void { messageBox.invalidateSize(); });
-			messageBox.percentWidth = 95;
+			messageBox.percentWidth = 100;
 
 			addChild(messageBox);
 			
 			return messageBox;
 		}
 		
-		private function _adjustHistory(force:Boolean=false):void {
-			if(force || verticalScrollPosition >= maxVerticalScrollPosition - 500)
+		private function _adjustHistory(force:Boolean=true):void {
 				verticalScrollPosition = maxVerticalScrollPosition;
 		}
 	]]></mx:Script>
