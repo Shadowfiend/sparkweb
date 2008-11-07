@@ -41,6 +41,7 @@
  
 <mx:Script>
 	<![CDATA[
+		import com.jivesoftware.spark.events.SparkWindowEvent;
 		import mx.managers.PopUpManager;
 		import com.jivesoftware.spark.events.CreateChatEvent;
 		import com.jivesoftware.spark.managers.SparkManager;
@@ -88,7 +89,11 @@
 		protected function viewProfile():void 
 		{
 			//TODO: CS profile viewing... will need some sort of useful abstraction here
-			ProfileWindow.showProfile(rosterItem);
+		    var profileWindow:ProfileWindow = new ProfileWindow();
+        	var event:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.OPEN_WINDOW,true);
+        	event.window = profileWindow;
+			dispatchEvent(event);
+        	profileWindow.show(rosterItem, false);
 			remove();
 		}
 		

@@ -31,6 +31,7 @@
 	</mx:Style>
     <mx:Script>
         <![CDATA[
+        	import com.jivesoftware.spark.events.SparkWindowEvent;
         	import mx.core.Application;
         	import org.jivesoftware.xiff.vcard.VCard;
         	import org.jivesoftware.xiff.events.VCardEvent;
@@ -46,7 +47,9 @@
             private var editable:Boolean;
             
             private function close():void {
-            	PopUpManager.removePopUp(this);
+            	var event:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.CLOSE_WINDOW, true);
+            	event.window = this;
+            	dispatchEvent(event);
             }
             
             public function show(contact:RosterItemVO, editable:Boolean=false):void 
@@ -106,12 +109,7 @@
             	homeMobileText.text = vcard.homeCellNumber;
             }
             
-            public static function showProfile(contact:RosterItemVO, editable:Boolean=false):void 
-			{
-            	var profileWindow:ProfileWindow = ProfileWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), ProfileWindow));
-				PopUpManager.centerPopUp(profileWindow);
-            	profileWindow.show(contact, editable);
-			}
+
             
             public function init():void {
            		this.titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];

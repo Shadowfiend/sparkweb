@@ -80,7 +80,7 @@
 			
 				//ScrollWheelManager.registerForScrollEvents(occupantsContainer);
 				tabs.insertTabAt("Chat", 0);
-				tabs.insertTabAt("Participants", 1);
+				//tabs.insertTabAt("Participants", 1);
 				tabs.selectedTabIndex = 0;
 
 				editor.addEventListener(EditorEvent.MESSAGE_CREATED, function(evt:EditorEvent):void {

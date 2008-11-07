@@ -31,6 +31,7 @@
 	 	  creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import com.jivesoftware.spark.events.SparkWindowEvent;
 			import com.jivesoftware.spark.ScrollWheelManager;
 			import com.jivesoftware.spark.AddServerWindow;
 			import com.jivesoftware.spark.AddUserWindow;
@@ -92,6 +93,24 @@
 				return sharedInstance.conferences;
 			}
 			
+			private function showAddUser():void
+			{
+				var addUserWindow:AddUserWindow = new AddUserWindow();
+	        	var event:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.OPEN_WINDOW,true);
+	        	event.window = addUserWindow;
+				dispatchEvent(event);
+				addUserWindow.show();
+			}
+//            public static function showAddUser(jid:UnescapedJID=null, nickname:String=null):void 
+//			{
+//            	var addUserWindow:AddUserWindow = AddUserWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), AddUserWindow));
+//				PopUpManager.centerPopUp(addUserWindow);
+//				if (jid && nickname)
+//					addUserWindow.prefill(jid, nickname);
+//				
+//            	addUserWindow.show();
+//            }
+
 			//TODO: implement this
 			public function showStartChat():void { }
 		]]>
@@ -138,7 +157,7 @@
       		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.server')}" visible="false" maxWidth="0" id="addServer" icon="@Embed(source='/assets/images/add_server.png')" mouseUp="AddServerWindow.showAddServer();" />
       	
       		<mx:Button color="white" visible="false" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.logout')}" icon="@Embed(source='/assets/images/close_dark.png')" mouseUp="SparkManager.logout()" />
-    		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="AddUserWindow.showAddUser()" />
+    		<mx:Button color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="showAddUser()" />
 	<mx:Spacer width="4"/>
     	</mx:HBox>
 </sparkComp:GradientCanvas>

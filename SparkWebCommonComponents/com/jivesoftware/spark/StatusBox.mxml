@@ -21,6 +21,7 @@
 <component:GradientCanvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:component="com.jivesoftware.spark.*">
   <mx:Script>
         <![CDATA[
+        	import com.jivesoftware.spark.events.SparkWindowEvent;
         	import com.jivesoftware.spark.IconComboBox;
         	import org.jivesoftware.xiff.events.VCardEvent;
         	import org.jivesoftware.xiff.vcard.VCard;
@@ -159,7 +160,11 @@
 		    
 		    public function editMyProfile(event:ContextMenuEvent):void
 		    {
-		    	ProfileWindow.showProfile(SparkManager.me, true);
+			    var profileWindow:ProfileWindow = new ProfileWindow();
+	        	var evt:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.OPEN_WINDOW,true);
+	        	evt.window = profileWindow;
+				dispatchEvent(evt);
+	        	profileWindow.show(SparkManager.me, true);
 		    }
 		         
           ]]>

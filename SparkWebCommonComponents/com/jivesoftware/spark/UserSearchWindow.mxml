@@ -44,7 +44,7 @@
             	var selectedJID:UnescapedJID = new UnescapedJID(userSearchResults.selectedItem.jid);
              	
             	close();
-            	AddUserWindow.showAddUser(selectedJID, selectedJID.node);
+            	//AddUserWindow.showAddUser(selectedJID, selectedJID.node);
             }
             
             protected override function buttonTwoAction():void 

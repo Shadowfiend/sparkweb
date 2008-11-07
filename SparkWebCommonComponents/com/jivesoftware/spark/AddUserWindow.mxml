@@ -29,6 +29,7 @@
 	</mx:Style>
     <mx:Script>
         <![CDATA[
+        	import com.jivesoftware.spark.events.SparkWindowEvent;
         	import org.jivesoftware.xiff.core.UnescapedJID;
         	import mx.core.Application;
         	import mx.collections.ArrayCollection;
@@ -52,15 +53,19 @@
             private function createUser():void {
                 var nickname:String = nicknameField.text;
                 var username:String = usernameField.text;
-                
+         		var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") : "gmail.com";
+          		var jidStr:String = username + "@" + server;
+        		var enteredJid:UnescapedJID = new UnescapedJID(jidStr);               
                 var con:XMPPConnection = SparkManager.connectionManager.connection;
                 var roster:Roster = new Roster(con);
-				roster.addContact(new UnescapedJID(username), nickname, groupField.text, true);
+				roster.addContact(enteredJid, nickname, groupField.text, true);
 				close();
             }
             
             private function close():void {
-            	PopUpManager.removePopUp(this);
+            	var evt:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.CLOSE_WINDOW,true);
+            	evt.window = this;
+            	dispatchEvent(evt);
             }
             
             public function show():void {
@@ -86,12 +91,12 @@
             
             private function handleUsernameFocusOut():void {
             	// Append "@[servername]" if only a username was entered.
-            	if (usernameField.text.length > 0 && usernameField.text.indexOf("@") < 0) {
-            		var server:String = SparkManager.connectionManager.connection.server;
-            		usernameField.text = usernameField.text + "@" + server;
-            	}
-            	
-            	autoFillNickField();
+//            	if (usernameField.text.length > 0 && usernameField.text.indexOf("@") < 0) {
+//            		var server:String = SparkManager.connectionManager.connection.server;
+//            		usernameField.text = usernameField.text + "@" + server;
+//            	}
+//            	
+            	//autoFillNickField();
             	autoFillNickFieldByVcard();
             }
             
@@ -103,6 +108,8 @@
             		return;
             	
             	try {
+            		var server:String = _userType == "site" ? SparkManager.connectionManager.connection.server : "gmail.com";
+	          		usernameField.text = usernameField.text + "@" + server;
             		var enteredJid:UnescapedJID = new UnescapedJID(usernameField.text);
             	}
             	catch (exception:String) {
@@ -119,10 +126,11 @@
             private function autoFillNickFieldByVcard():void {
             	if (usernameField.length == 0)
             		return;
-            	
+            	var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") : "gmail.com";
+          		var jidStr:String = usernameField.text + "@" + server;
             	var con:XMPPConnection = SparkManager.connectionManager.connection;
             	
-            	var userBeingAdded:RosterItemVO = RosterItemVO.get(new UnescapedJID(usernameField.text), true);
+            	var userBeingAdded:RosterItemVO = RosterItemVO.get(new UnescapedJID(jidStr), true);
 
             	var vcard:VCard = VCard.getVCard(con, userBeingAdded);
 		    	if(vcard.loaded)
@@ -146,21 +154,24 @@
 				}
             }
             
-            public static function showAddUser(jid:UnescapedJID=null, nickname:String=null):void 
-			{
-            	var addUserWindow:AddUserWindow = AddUserWindow(PopUpManager.createPopUp(DisplayObjectContainer(Application.application), AddUserWindow));
-				PopUpManager.centerPopUp(addUserWindow);
-				if (jid && nickname)
-					addUserWindow.prefill(jid, nickname);
-				
-            	addUserWindow.show();
-            }
+            [Bindable]
+            public var types:ArrayCollection = new ArrayCollection(
+                [ {label:SparkManager.getConfigValueForKey('siteName'), data:"site"}, 
+                  {label:"GMail", data:"gmail"} ]);
+            
+            private var _userType:String = "site";
+            private function closeHandler(event:Event):void {
+                _userType = ComboBox(event.target).selectedItem.data;
+                nameItem.label = ComboBox(event.target).selectedItem.label + ' username';
+            } 
         ]]>
     </mx:Script>
 
 	 <mx:Form id="myForm" defaultButton="{submitButton}">
-
-        <mx:FormItem label="{Localizator.getText('label.im.address')}">
+		<mx:ComboBox close="closeHandler(event)" dataProvider="{types}" >
+			
+		</mx:ComboBox>
+        <mx:FormItem id="nameItem" label="{SparkManager.getConfigValueForKey('siteName')} username">
             <mx:TextInput id="usernameField" focusOut="handleUsernameFocusOut()" minWidth="{MIN_FIELD_WIDTH}" />
         </mx:FormItem>
         <mx:FormItem label="{Localizator.getText('label.nickname')}">
