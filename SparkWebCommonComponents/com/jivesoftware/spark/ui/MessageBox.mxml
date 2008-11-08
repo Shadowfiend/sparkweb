@@ -37,6 +37,8 @@
 		
 		private var _userWidget:UIComponent;
 		
+		private var _lastDate:Date;
+		
 		public function set userWidget(widget:UIComponent):void
 		{
 			_userWidget = widget;
@@ -81,8 +83,8 @@
 			var messageArea:MessageElement = new MessageElement();
 			messageArea.styleName = styleName;
 
-			if(message_list.numChildren > 0)
-			{
+			if (message_list.numChildren > 0 && _lastDate.minutes != date.minutes)
+		    {
 				var sep:ChatSeparator = new ChatSeparator();
 				sep.background = username_container.getStyle("backgroundColor");
 				sep.date = date;
@@ -93,11 +95,9 @@
 				messageArea.addChild(extra);
 			message_list.addChild(messageArea);	
 
-
 			messageArea.text = message;
 			
-
-			
+			_lastDate = date;
 		}
 		
 		private var _date:Date;
