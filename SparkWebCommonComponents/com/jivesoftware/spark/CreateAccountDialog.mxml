@@ -56,12 +56,15 @@
 		private static const dropShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0.0, 1.0, 6.0);
 		
 		private var _showLogin:Boolean = true;
-		
+		private var myName:String;
 		private function connect():void 
 		{
 			username = userNameField.text;
 			password = passwordField.text;
+			
 			email = emailField.text;
+			
+				myName = username;
 			serverURL = SparkManager.getConfigValueForKey("server");
 			
 			con = SparkManager.connectionManager.connection;
@@ -93,7 +96,7 @@
 		private function createAccount(event:Event):void 
 		{
 			var accountManager:AccountManager = SparkManager.accountManager;
-			accountManager.createAccount(username, password, email,creationResults, creationErrors);
+			accountManager.createAccount(username, password, email, myName, creationResults, creationErrors);
 		}
 		
 		private function creationError(event:Event):void 
@@ -202,13 +205,13 @@
         id="nameValidator"
         source="{userNameField}" 
         property="text"
-        minLength="2"
+        minLength="1"
     />
     <mx:StringValidator 
         id="passValidator"
         source="{passwordField}" 
         property="text"
-        minLength="5"
+        minLength="0"
     /> 
 	<mx:HBox styleName="titleBar">
 		<mx:Image source="{titleImage}" visible="{titleImage != null}" />
@@ -226,7 +229,13 @@
 					<mx:Label color="white" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
-		
+		<!--
+		<mx:GridRow>
+			<mx:GridItem styleName="userName">
+				 <mx:Label color="white" id="nameField" filters="{[dropShadow]}" text="Your Name" styleName="formLabel" />
+			</mx:GridItem>
+		</mx:GridRow>
+		-->
 		<mx:GridRow>
 			<mx:GridItem styleName="userFieldGrid">
 		      <mx:TextInput styleName="userTextInput" id="userNameField" />

@@ -6,7 +6,7 @@ package com.jivesoftware.spark.managers
 		{
 		}
 		
-		public function createAccount(username:String, password:String, email:String, onSuccess:Function, onFailure:Function=null): void
+		public function createAccount(username:String, password:String, email:String, name:String, onSuccess:Function, onFailure:Function=null): void
 		{
 			
 		}

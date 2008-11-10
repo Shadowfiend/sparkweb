@@ -32,7 +32,7 @@ package com.jivesoftware.spark.managers {
 			this._connection = con;
 		}
 		
-		public function createAccount(username:String, password:String, email:String, onSuccess:Function, onFailure:Function=null):void 
+		public function createAccount(username:String, password:String, email:String, name:String,onSuccess:Function, onFailure:Function=null):void 
 		{
 			var iq:IQ = new IQ(new EscapedJID(_connection.server), IQ.SET_TYPE);
 		    iq.callbackName = "handleRegistration";
