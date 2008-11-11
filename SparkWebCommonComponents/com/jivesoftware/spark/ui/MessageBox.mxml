@@ -17,8 +17,8 @@
     along with SparkWeb.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<mx:VBox creationPolicy="all" borderColor="#ebebeb" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
-	verticalScrollPolicy="off" horizontalScrollPolicy="off" verticalGap="0" horizontalGap="0"  >
+<mx:VBox creationPolicy="all"  xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:jive="com.jivesoftware.groupchat.components.*" 
+	verticalScrollPolicy="off" horizontalScrollPolicy="off">
 	<mx:Style>
    		.username { font-weight:bold; color:#3e3e3e;}
    		.date {  font-weight:bold; color:#7f7f7f; }

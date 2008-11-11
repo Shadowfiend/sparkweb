@@ -142,6 +142,7 @@
  			var adminServer:String = SparkManager.getConfigValueForKey("server");
 			if(adminServer && adminServer.length > 0 && servers.indexOf(adminServer) == -1)
 				servers.unshift(adminServer);
+			focusManager.setFocus(userNameField);
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void {

@@ -126,6 +126,8 @@
 				loginToServer();
 			else
 				focusManager.setFocus(userNameField);
+			focusManager.setFocus(userNameField);
+			userNameField.setSelection(0,0);
 		}
 		
 		public function reset():void 
