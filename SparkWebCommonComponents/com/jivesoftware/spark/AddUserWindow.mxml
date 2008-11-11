@@ -29,6 +29,7 @@
 	</mx:Style>
     <mx:Script>
         <![CDATA[
+        	import com.jivesoftware.spark.events.InviteUserEvent;
         	import com.jivesoftware.spark.events.SparkWindowEvent;
         	import org.jivesoftware.xiff.core.UnescapedJID;
         	import mx.core.Application;
@@ -53,12 +54,20 @@
             private function createUser():void {
                 var nickname:String = nicknameField.text;
                 var username:String = usernameField.text;
-         		var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") : "gmail.com";
-          		var jidStr:String = username + "@" + server;
+                
+                if(_userType == "email"){
+                	var evt:InviteUserEvent = new InviteUserEvent(InviteUserEvent.INVITE,true);
+                	evt.email = username;
+                	dispatchEvent(evt);
+                }else{
+         		var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") :  "gmail.com";
+         		
+          		var jidStr:String = _userType == "email" ? username : username + "@" + server;
         		var enteredJid:UnescapedJID = new UnescapedJID(jidStr);               
                 var con:XMPPConnection = SparkManager.connectionManager.connection;
                 var roster:Roster = new Roster(con);
 				roster.addContact(enteredJid, nickname, groupField.text, true);
+                }
 				close();
             }
             
@@ -157,12 +166,12 @@
             [Bindable]
             public var types:ArrayCollection = new ArrayCollection(
                 [ {label:SparkManager.getConfigValueForKey('siteName'), data:"site"}, 
-                  {label:"GMail", data:"gmail"} ]);
+                  {label:"GMail", data:"gmail"} , {label:"Email", data:"email"}]);
             
             private var _userType:String = "site";
             private function closeHandler(event:Event):void {
                 _userType = ComboBox(event.target).selectedItem.data;
-                nameItem.label = ComboBox(event.target).selectedItem.label + ' username';
+                nameItem.label = ComboBox(event.target).selectedItem.label + ( _userType == 'email' ? " Address" : 'username');
             } 
         ]]>
     </mx:Script>
