@@ -20,16 +20,14 @@
 
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
 	width="100%" 
-	minWidth="100" 
-	minHeight="20" 
 	horizontalGap="0" 
-	y="-10"
+	clipContent="true"
 	horizontalScrollPolicy="off"
 	verticalScrollPolicy="off">
 	<mx:Style>
    		.text { }
    		.system {font-style: italic; color: #BBBBBB;}
-   		.highlight {border-style:solid; border-color:red;}
+   		.highlight {}
    		.date { font-style:normal; color: #C9C9C9; }
    		.dateDark { font-style:normal; color: #222222; }
 	</mx:Style>
@@ -71,5 +69,5 @@
 	
     <mx:Iris id="irisIn" duration="300" showTarget="false"/>
 
-	<mx:Text  filters="{selected ? [selectedFilter] : []}" id="message" color="#000000" selectable="true" width="100%"  />
+	<mx:Text  filters="{selected ? [selectedFilter] : []}" id="message" styleName="chatMessage" selectable="false" width="100%"  />
 </mx:VBox>
