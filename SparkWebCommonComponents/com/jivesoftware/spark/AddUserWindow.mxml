@@ -18,7 +18,7 @@
 -->
 
    
-<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="#111111"
 	title="{Localizator.getText('title.add.user.window')}" showCloseButton="true" close="close()" 
 	creationComplete="init()">
 	<mx:Style>
@@ -186,7 +186,7 @@
     </mx:Form>
 
 	<mx:ControlBar horizontalAlign="right">
-    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.cancel')}" click="close();" />
-		<mx:Button id="submitButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.submit')}" click="createUser();"/>
+    	<mx:Button color="#111111" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.cancel')}" click="close();" />
+		<mx:Button id="submitButton" color="#111111" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.submit')}" click="createUser();"/>
 	</mx:ControlBar>   
 </comp:ColorShiftingTitleWindow>

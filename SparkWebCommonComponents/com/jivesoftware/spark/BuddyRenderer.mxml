@@ -31,7 +31,7 @@
 	    color="black"
 	    cornerRadius="{expanded ? 8 : 0}"
 	    backgroundColor="{expanded ? 0xCFCFCF : 0xEEEEEE}"
-	    fontFamily="Lucida Sans, Myriad Pro, Arial, sans serif"
+	    fontFamily="myLucida, Myriad Pro, Arial, sans serif"
 	    fontStyle="{rosterItem &amp;&amp; rosterItem.show != null &amp;&amp; rosterItem.show != Presence.SHOW_CHAT ? 'italic' : 'normal'}" 
 	    fontWeight="{selected ? 'bold' : 'normal'}"
 		implements="mx.managers.IFocusManagerComponent"
@@ -439,6 +439,6 @@
 	<mx:Image id="avatarImage" left="8" top="2" width="24" height="24" source="{dummyIcon}" maxWidth="{rosterItem != null ? NaN : 0}" visible="{rosterItem != null}" />
 
 	<!--<mx:Image id="presenceIconImage" left="40" top="8" source="{SparkManager.presenceManager.getIconFromRosterItem(rosterItem != null ? rosterItem : data, data.show, data.online)}" />-->
-	<mx:TextArea left="70" borderStyle="none" selectable="false" paddingTop="8" focusThickness="0" height="28" focusEnabled="false" backgroundColor="{expanded ? 0xCFCFCF : 0xEEEEEE}" right="0" top="0" toolTipCreate="event.toolTip = createProfileToolTip()" id="statusLabel" fontSize="13" htmlText="{formatLabel(data.displayName, rosterItem != null ? rosterItem.status : 'available')}" />
+	<mx:TextArea left="70" borderStyle="none" selectable="false" paddingTop="8" focusThickness="0" height="28" focusEnabled="false" backgroundColor="{expanded ? 0xCFCFCF : 0xEEEEEE}" right="0" top="0" toolTipCreate="event.toolTip = createProfileToolTip()" id="statusLabel" fontSize="11" htmlText="{formatLabel(data.displayName, rosterItem != null ? rosterItem.status : 'available')}" />
 
 </mx:Canvas>

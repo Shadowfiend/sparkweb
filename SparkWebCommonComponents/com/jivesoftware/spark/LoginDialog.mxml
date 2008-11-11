@@ -232,10 +232,10 @@
         
         	<mx:GridRow>
         		<mx:GridItem styleName="userLabelGrid">
-        			 <mx:Label color="white" filters="{dropShadowFilters}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
+        			 <mx:Label color="#111111" filters="{dropShadowFilters}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
         		</mx:GridItem>
         		<mx:GridItem id="passwordLabelItem" styleName="passwordLabelGrid"> 
-        			   <mx:Label id="passwordLabel" color="white" filters="{dropShadowFilters}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
+        			   <mx:Label id="passwordLabel" color="#111111" filters="{dropShadowFilters}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
         		</mx:GridItem>
         	</mx:GridRow>
         	
