@@ -60,13 +60,13 @@
                 	evt.email = username;
                 	dispatchEvent(evt);
                 }else{
-         		var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") :  "gmail.com";
-         		
-          		var jidStr:String = _userType == "email" ? username : username + "@" + server;
-        		var enteredJid:UnescapedJID = new UnescapedJID(jidStr);               
-                var con:XMPPConnection = SparkManager.connectionManager.connection;
-                var roster:Roster = new Roster(con);
-				roster.addContact(enteredJid, nickname, groupField.text, true);
+	         		var server:String = _userType == "site" ? SparkManager.getConfigValueForKey("server") :  "gmail.com";
+	         		
+	          		var jidStr:String = _userType == "email" ? username : username + "@" + server;
+	        		var enteredJid:UnescapedJID = new UnescapedJID(jidStr);               
+	                var con:XMPPConnection = SparkManager.connectionManager.connection;
+	                var roster:Roster = new Roster(con);
+					roster.addContact(enteredJid, nickname, groupField.text, true);
                 }
 				close();
             }
