@@ -171,7 +171,7 @@
             private var _userType:String = "site";
             private function closeHandler(event:Event):void {
                 _userType = ComboBox(event.target).selectedItem.data;
-                nameItem.label = ComboBox(event.target).selectedItem.label + ( _userType == 'email' ? " Address" : 'username');
+                nameItem.label = ComboBox(event.target).selectedItem.label + ( _userType == 'email' ? " Address" : ' username');
             } 
         ]]>
     </mx:Script>
