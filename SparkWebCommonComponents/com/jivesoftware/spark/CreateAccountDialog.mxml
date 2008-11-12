@@ -53,7 +53,7 @@
 		
 		private var _titleImage:Object = defaultTitleImage;
 		
-		private static const dropShadow:DropShadowFilter = new DropShadowFilter(0, 45, 0.0, 1.0, 6.0);
+		private static const dropShadow:DropShadowFilter = new DropShadowFilter(.4, .4, .4, .4, .4);
 		
 		private var _showLogin:Boolean = true;
 		private var myName:String;
@@ -217,17 +217,17 @@
 	<mx:HBox styleName="titleBar">
 		<mx:Image source="{titleImage}" visible="{titleImage != null}" />
 		<mx:Spacer />
-		<mx:LinkButton styleName="gotoLogin" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
+		<mx:LinkButton color="#616363" styleName="gotoLogin" id="registerButton" label="{Localizator.getText('message.login.account')}" click="Application.application.showLogin();" visible="{showLogin}" />
 	</mx:HBox>
 	
 	<mx:Grid id="grid" styleName="registerGrid"  >
         
 		<mx:GridRow>
 			<mx:GridItem styleName="userLabelGrid">
-				 <mx:Label color="#111111" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
+				 <mx:Label color="#616363" filters="{[dropShadow]}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
 			</mx:GridItem>
 			<mx:GridItem styleName="emailLabelGrid">
-					<mx:Label color="#111111" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
+					<mx:Label color="#616363" filters="{[dropShadow]}" text="{Localizator.getText('label.email')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
 		<!--
@@ -248,10 +248,10 @@
 		
 		<mx:GridRow>
 			<mx:GridItem  styleName="userLabelGrid">
-				<mx:Label id="passwordLabel" color="#111111" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
+				<mx:Label id="passwordLabel" color="#616363" filters="{[dropShadow]}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
 			</mx:GridItem>
 			<mx:GridItem styleName="passwordLabelGrid">
-				<mx:Label color="#111111" filters="{[dropShadow]}" text="{Localizator.getText('label.confirm')}" styleName="formLabel" />
+				<mx:Label color="#616363" filters="{[dropShadow]}" text="{Localizator.getText('label.confirm')}" styleName="formLabel" />
 			</mx:GridItem>
 		</mx:GridRow>
 		

@@ -50,10 +50,9 @@
 		private var password:String;
 		private var policyFileURL:String;
 		private var savedServers:UniqueingQueue;
-		private var errorFilters:Array = [new GlowFilter(0xFF9B26)];
 		
-		[Bindable]
-		private var dropShadowFilters:Array = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
+		[Bindable] 
+		private var dropShadowFilters:Array = [new DropShadowFilter(.4, .4, 0.4, .4, .4)];
 	
 		[Embed(source='/assets/images/sparkweb.png')]
 		private static const defaultTitleImage:Class;
@@ -82,6 +81,7 @@
 		private function failedLogin(errors:Object)
 		{
 			showErrorText("Invalid username/password");
+			loginButton.enabled = true;
 		}
 		
 		private function doJabberLogin(results:Object):void
@@ -106,7 +106,6 @@
 			Security.allowDomain( "*" );
 			Security.allowInsecureDomain("*");
 
-			loginButton.enabled = false;
 			connectionManager.login(username, passwordStr, serverURL);
 		}
 		
@@ -137,13 +136,13 @@
 				loginButton.enabled = true;
 				focusManager.setFocus(userNameField);
 				
-				userNameField.filters = errorFilters;
-				passwordField.filters = errorFilters;
 			}
 		}
 		
 		public function showErrorText(text:String):void {
 			errorLabel.text = text;
+			
+			loginButton.enabled = true;
 		}
 		
 		private function handleKeyUp(event:KeyboardEvent):void 
@@ -226,21 +225,21 @@
 <mx:HBox styleName="titleBar" visible="{showTitleBar}">
 	<mx:Image source="{titleImage}" visible="{titleImage != null}"/>
 	<mx:Spacer />
-	<mx:LinkButton styleName="gotoRegister" id="registerButton" label="{Localizator.getText('message.create.account')}" click="Application.application.showCreateAccount();" visible="{showCreateAccount}" /> 
+	<mx:LinkButton color="#444444" styleName="gotoRegister" id="registerButton" label="{Localizator.getText('message.create.account')}" click="Application.application.showCreateAccount();" visible="{showCreateAccount}" /> 
 </mx:HBox>
 <mx:Grid id="grid" styleName="loginGrid">
         
         	<mx:GridRow>
         		<mx:GridItem styleName="userLabelGrid">
-        			 <mx:Label color="#111111" filters="{dropShadowFilters}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
+        			 <mx:Label color="#616363" filters="{dropShadowFilters}" text="{Localizator.getText('label.username')}" styleName="formLabel" />
         		</mx:GridItem>
         		<mx:GridItem id="passwordLabelItem" styleName="passwordLabelGrid"> 
-        			   <mx:Label id="passwordLabel" color="#111111" filters="{dropShadowFilters}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
+        			   <mx:Label id="passwordLabel" color="#616363" filters="{dropShadowFilters}" text="{Localizator.getText('label.password')}" styleName="formLabel" />
         		</mx:GridItem>
         	</mx:GridRow>
         	
         	<mx:GridRow>
-        		<mx:GridItem styleName="userFieldGrid">
+        		<mx:GridItem  styleName="userFieldGrid">
         	      <mx:TextInput id="userNameField" styleName="userTextInput" />
         		</mx:GridItem>
         		<mx:GridItem id="passwordFieldItem" styleName="passwordTextGrid">
@@ -249,13 +248,13 @@
         	</mx:GridRow>        	
         	<mx:GridRow styleName="paddedGridRow">
         		<mx:GridItem colSpan="2">
-        			<mx:Label filters="{dropShadowFilters}" id="errorLabel" styleName="errorLabel" />
+        			<mx:Label  id="errorLabel" styleName="errorLabel" />
         		</mx:GridItem>
         	</mx:GridRow>
         	<mx:GridRow styleName="paddedGridRow">
         	  	<mx:GridItem />
         		<mx:GridItem id="loginItem" styleName="loginItem">
-        			<mx:Button filters="{dropShadowFilters}" id="loginButton" styleName="loginButton" label="{Localizator.getText('label.login')}" click="loginToServer()" />
+        			<mx:Button filters="{dropShadowFilters}" id="loginButton"  label="{Localizator.getText('label.login')}" click="loginToServer()" />
         		</mx:GridItem>
         	</mx:GridRow>
         </mx:Grid>
