@@ -225,7 +225,8 @@
 <mx:HBox styleName="titleBar" visible="{showTitleBar}">
 	<mx:Image source="{titleImage}" visible="{titleImage != null}"/>
 	<mx:Spacer />
-	<mx:LinkButton color="#444444" styleName="gotoRegister" id="registerButton" label="{Localizator.getText('message.create.account')}" click="Application.application.showCreateAccount();" visible="{showCreateAccount}" /> 
+	<!--<mx:LinkButton color="#444444" styleName="gotoRegister" id="registerButton" label="{Localizator.getText('message.create.account')}" click="Application.application.showCreateAccount();" visible="{showCreateAccount}" /> 
+	-->
 </mx:HBox>
 <mx:Grid id="grid" styleName="loginGrid">
         

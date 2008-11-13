@@ -83,7 +83,7 @@
             
             public function prefill(jid:UnescapedJID=null, nickname:String=null, group:String=null):void {
             	if (jid != null) {
-            		usernameField.text = jid.toString();
+            		usernameField.text = jid.node.toString();
             	}
             	if (nickname != null) {
             		nicknameField.text = nickname;
