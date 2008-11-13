@@ -18,7 +18,7 @@
 -->
 
 
-<mx:VBox xmlns:sho="sho.ui.*" xmlns:comp="com.jivesoftware.spark.*" horizontalAlign="center" xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:VBox xmlns:sho="sho.ui.*" xmlns:comp="com.jivesoftware.spark.*"  horizontalAlign="center" xmlns:mx="http://www.adobe.com/2006/mxml">
 	
 	<mx:Style>
 		.title {

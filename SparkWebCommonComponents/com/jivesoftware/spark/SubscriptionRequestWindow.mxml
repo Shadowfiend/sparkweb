@@ -19,8 +19,8 @@
 
 
 
-<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
-	title="{Localizator.getText('title.subscription.request.window')}" showCloseButton="true" close="close()" 
+<comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="#212121"
+	title="{Localizator.getText('title.subscription.request.window')}" backgroundColor="#b5e6f3" showCloseButton="false" close="close()" 
 	creationComplete="init()">
 	
 	<mx:Style>
@@ -50,8 +50,7 @@
 
 			private function init():void 
 			{
-            	titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
-           		titleTextField.styleName = "title";
+            	
             }
             
             /**
@@ -143,9 +142,9 @@
 	</mx:Form>
 
 	<mx:ControlBar horizontalAlign="right">
-    	<mx:Button color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.deny')}"
+    	<mx:Button color="#212121" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.deny')}"
 				   click="{SparkManager.roster.denySubscription(fromJid); close();}" />
-		<mx:Button id="submitButton" color="white" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.accept')}"
+		<mx:Button id="submitButton" color="#212121" filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 2.0)]}" label="{Localizator.getText('label.accept')}"
 				   click="{accept(); close();}"/>
 	</mx:ControlBar>  
 

@@ -19,7 +19,7 @@
 
 
 <comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="white"
-	title="{Localizator.getText('title.muc.invite.receive.window')}" showCloseButton="true" close="close()" 
+	title="{Localizator.getText('title.muc.invite.receive.window')}" showCloseButton="false" close="close()" 
 	creationComplete="init()">
 	
 	<mx:Style>

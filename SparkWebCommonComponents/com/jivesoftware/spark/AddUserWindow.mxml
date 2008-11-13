@@ -94,8 +94,7 @@
             }
             
             public function init():void {
-           		this.titleTextField.filters = [new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)];
-           		this.titleTextField.styleName = "title";
+           		
             }
             
             private function handleUsernameFocusOut():void {
