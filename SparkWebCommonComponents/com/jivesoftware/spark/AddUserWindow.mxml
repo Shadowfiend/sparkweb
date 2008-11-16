@@ -19,7 +19,7 @@
 
    
 <comp:ColorShiftingTitleWindow xmlns:comp="com.jivesoftware.spark.*" xmlns:mx="http://www.adobe.com/2006/mxml" color="#111111"
-	title="{Localizator.getText('title.add.user.window')}" showCloseButton="true" close="close()" 
+	title="Add A Friend" showCloseButton="true" close="close()" 
 	creationComplete="init()">
 	<mx:Style>
 		.title {
@@ -77,8 +77,10 @@
             	dispatchEvent(evt);
             }
             
-            public function show():void {
+            private var _addType:String;
+            public function show(addType:String = 'site'):void {
             	stage.focus = usernameField;
+            	_addType = addType;
             }
             
             public function prefill(jid:UnescapedJID=null, nickname:String=null, group:String=null):void {
@@ -94,8 +96,16 @@
             }
             
             public function init():void {
-           		
-            }
+           		if(_addType == 'gmail'){
+           			invite.selectedIndex = 1;
+           			title = 'Add GTalk Contact';
+           		}
+           		if(_addType == 'email'){
+           			invite.selectedIndex = 2;
+           			title = 'Invite Friend By Email';
+           		}
+				closeHandler(null);
+		    }
             
             private function handleUsernameFocusOut():void {
             	// Append "@[servername]" if only a username was entered.
@@ -169,14 +179,14 @@
             
             private var _userType:String = "site";
             private function closeHandler(event:Event):void {
-                _userType = ComboBox(event.target).selectedItem.data;
-                nameItem.label = ComboBox(event.target).selectedItem.label + ( _userType == 'email' ? " Address" : ' username');
+                _userType = invite.selectedItem.data;
+                nameItem.label = invite.selectedItem.label + ( _userType == 'email' ? " Address" : ' username');
             } 
         ]]>
     </mx:Script>
 
 	 <mx:Form id="myForm" defaultButton="{submitButton}">
-		<mx:ComboBox close="closeHandler(event)" dataProvider="{types}" >
+		<mx:ComboBox close="closeHandler(event)" id="invite" dataProvider="{types}" >
 			
 		</mx:ComboBox>
         <mx:FormItem id="nameItem" label="{SparkManager.getConfigValueForKey('siteName')} username">

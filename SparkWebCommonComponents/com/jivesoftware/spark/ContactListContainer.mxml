@@ -68,13 +68,13 @@
 				return sharedInstance.conferences;
 			}
 			
-			private function showAddUser():void
+			private function showAddUser(addType:String = 'site'):void
 			{
 				var addUserWindow:AddUserWindow = new AddUserWindow();
 	        	var event:SparkWindowEvent = new SparkWindowEvent(SparkWindowEvent.OPEN_WINDOW,true);
 	        	event.window = addUserWindow;
 				dispatchEvent(event);
-				addUserWindow.show();
+				addUserWindow.show(addType);
 			}
 //            public static function showAddUser(jid:UnescapedJID=null, nickname:String=null):void 
 //			{
@@ -98,8 +98,8 @@
 
     <mx:Label id="listLabel" top="5" left="5" text="Study Buddies"	color="white"/>
     <mx:Spacer width="100%"/>
-    <mx:LinkButton color="#d1d1d1" label="Invite" click="showAddUser()"/>
-    <mx:Button left="{listLabel." color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="showAddUser()" />
+    <mx:LinkButton color="#d1d1d1" toolTip="Invte a friend by email" label="Invite Friend" click="showAddUser('email')"/>
+    <mx:Button left="{listLabel." color="white" filters="{[buttonShadowFilter]}" toolTip="{Localizator.getText('label.add.contact')}" id="addUser" icon="@Embed(source='/assets/images/addBuddy.png')" mouseUp="showAddUser('site')" />
    </mx:HBox>
  	</gui:GradientCanvas>
 
