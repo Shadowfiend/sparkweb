@@ -51,10 +51,12 @@
             	event.window = this;
             	dispatchEvent(event);
             }
+            private var _contact:RosterItemVO;
             
             public function show(contact:RosterItemVO, editable:Boolean=false):void 
             {
             	var vcard:VCard = VCard.getVCard(SparkManager.connectionManager.connection, contact);
+            	_contact = contact;
 	    		if(vcard.loaded)
 	    			loadVCard(vcard);
 	    		else
@@ -72,6 +74,7 @@
             private function loadVCard(vcard:VCard):void
             {
             	// Load Avatar
+            	vcard.loaded = true;
             	if (vcard.avatar != null)
             		avatarImage.source = vcard.avatar;
 
@@ -118,7 +121,7 @@
             
             private function save():void
             {
-            	var savedVCard:VCard = new VCard();
+            	var savedVCard:VCard = VCard.getVCard(SparkManager.connectionManager.connection, _contact);
             	
             	// Save Personal fields
             	savedVCard.firstName = firstNameText.text;
