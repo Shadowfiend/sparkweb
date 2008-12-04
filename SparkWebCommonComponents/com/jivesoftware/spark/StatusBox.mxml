@@ -66,6 +66,7 @@
 		    	});
 		    	
 		    	var vcard:VCard = VCard.getVCard(con, me);
+		    	
 		    	if(vcard.loaded)
 		    	{
 		    		displayVCard(vcard);
@@ -83,6 +84,11 @@
 		    	setupDefaults();
 		    }
 		    
+		    private function changeImage():void
+		    {
+		    	dispatchEvent(new Event("changeImage",true));
+		    }
+		    
 		    private function displayAvatar(card:VCard):void
 		    {
 		    	var img:ByteArray = card.avatar;
@@ -91,6 +97,7 @@
         			avatarLoader.width = avatarLoader.width > 48 ? 48 : avatarLoader.width;
         			avatarLoader.height = avatarLoader.height > 48 ? 48 : avatarLoader.height;
         			var avatarImage:Image = new Image();
+        			avatarImage.addEventListener(MouseEvent.CLICK, function(event:Event){changeImage();});
         			avatarImage.source = avatarLoader;
         			avatarImage.id = "avatar";
         			
@@ -170,7 +177,7 @@
           ]]>
     </mx:Script>
 	<mx:HBox paddingLeft="4" paddingRight="4" paddingTop="4" paddingBottom="4" id="hbox" width="100%" height="100%" >
-		<mx:Image id="avatar" source="@Embed(source='/assets/images/dummyContact.png')" />	
+		<mx:Image id="avatar" source="@Embed(source='/assets/images/dummyContact.png')" click="changeImage()" />	
 		<mx:VBox horizontalGap="0" verticalGap="0" width="100%" paddingRight="0" paddingLeft="0">
 			<mx:Label filters="{[new DropShadowFilter(0, 45, 0.0, 1.0, 6.0)]}" id="username" text="{SparkManager.me.displayName}" color="white" fontSize="15" fontWeight="bold" />
 			<component:IconComboBox 

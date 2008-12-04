@@ -159,8 +159,10 @@
 		private function creationErrors(errors:Object)
 		{
 			cleanupConnections();
-			if(errors != null)
-				Alert.show(errors.toString());
+			if(errors != null){
+				Alert.show(Localizator.getText("message.account.creation.validate"));
+			    showErrorText(Localizator.getText("message.account.creation.failed"));
+			}
 		}
 
 		[Bindable]

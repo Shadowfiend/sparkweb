@@ -58,9 +58,12 @@ package org.jivesoftware.xiff.vcard
 		private static var requestQueue:Array = [];
 		private static var requestTimer:Timer;
 		//flush the vcard cache every 6 hours
+		
 		private static var cacheFlushTimer:Timer = new Timer(21600000, 0);
+
 		public static function getVCard(con:XMPPConnection, user:RosterItemVO):VCard
 		{
+			
 			if(!cacheFlushTimer.running)
 			{
 				cacheFlushTimer.start();
@@ -421,6 +424,7 @@ package org.jivesoftware.xiff.vcard
 			
 			iq.addExtension(vcardExt);
 			con.send(iq);
+			loaded = true;
 		}
 		
 		public function _vCardSent(resultIQ:IQ):void
