@@ -44,7 +44,7 @@
         
 			private var _defaultPresence:*;
 		         
-		    public function loadVCard():void 
+		    public function loadVCard(force:Boolean = false):void 
 		    {
 		    	var con:XMPPConnection = SparkManager.connectionManager.connection;
 		    	var me:RosterItemVO = SparkManager.me;
@@ -65,7 +65,13 @@
 		    			presences.text = evt.newValue as String;
 		    	});
 		    	
-		    	var vcard:VCard = VCard.getVCard(con, me);
+		    	var vcard:VCard;
+		    	
+		    	if(force){
+		    		vcard = VCard.refreshVCard(con,me);
+		    	}else{
+		    		vcard = VCard.getVCard(con, me);
+		    	}
 		    	
 		    	if(vcard.loaded)
 		    	{
