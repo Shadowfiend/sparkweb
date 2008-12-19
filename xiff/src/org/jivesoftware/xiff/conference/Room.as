@@ -656,13 +656,13 @@ package org.jivesoftware.xiff.conference
 						} 
 						else if ( msg.type == Message.NORMAL_TYPE ) 
 						{
-								var form:Array = msg.getAllExtensionsByNS(FormExtension.NS)[0];
-								if (form) 
-								{
-									e = new RoomEvent(RoomEvent.CONFIGURE_ROOM);
-									e.data = form;
-									dispatchEvent(e);
-								}
+//								var form:Array = msg.getAllExtensionsByNS(FormExtension.NS)[0];
+//								if (form) 
+//								{
+//									e = new RoomEvent(RoomEvent.CONFIGURE_ROOM);
+//									e.data = form;
+//									dispatchEvent(e);
+//								}
 
 						}
 					}

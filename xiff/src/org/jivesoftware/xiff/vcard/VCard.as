@@ -61,6 +61,18 @@ package org.jivesoftware.xiff.vcard
 		
 		private static var cacheFlushTimer:Timer = new Timer(21600000, 0);
 
+
+		
+		public static function refreshVCard(con:XMPPConnection, user:RosterItemVO):VCard
+		{
+			var vcard:VCard = new VCard();
+			vcard.contact = user;
+			var jidString:String = user.jid.toString();
+			cache[jidString] = vcard;
+			pushRequest(con, vcard);
+		    return vcard;			
+		}
+		
 		public static function getVCard(con:XMPPConnection, user:RosterItemVO):VCard
 		{
 			
