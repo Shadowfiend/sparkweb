@@ -1189,7 +1189,9 @@ package org.jivesoftware.xiff.conference
 		public function isThisRoom( sender:UnescapedJID ):Boolean
 		{
 			// Checks to see that sender is this room
-			return roomJID && sender.bareJID.toLowerCase() == roomJID.bareJID.toLowerCase();
+			var s:String = sender.escaped.bareJID.toLowerCase();
+			var t:String = roomJID.escaped.bareJID.toLowerCase();
+			return roomJID && sender.escaped.bareJID.toLowerCase() == roomJID.escaped.bareJID.toLowerCase();
 		}
 	
 		/**

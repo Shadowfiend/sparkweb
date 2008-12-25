@@ -62,16 +62,23 @@
 		private var myShowNode:XMLNode;
 		private var myStatusNode:XMLNode;
 		private var myPriorityNode:XMLNode;
+		private var myAppNode:XMLNode;
+		
+		
 	
 	
-		public function Presence( recipient:EscapedJID=null, sender:EscapedJID=null, presenceType:String=null, showVal:String=null, statusVal:String=null, priorityVal:Number=0 ) 
+		public function Presence( recipient:EscapedJID=null, sender:EscapedJID=null, presenceType:String=null, showVal:String=null, 
+			statusVal:String=null, priorityVal:Number=0, appDataVal:Object = null) 
 		{		
 			super( recipient, sender, presenceType, null, "presence" );
 			
 			show = showVal;
 			status = statusVal;
 			priority = priorityVal;
+			
+			appData = appDataVal;
 		}
+
 		
 		/**
 		 * Serializes the Presence into XML form for sending to a server.
@@ -111,6 +118,9 @@
 							
 						case "priority":
 							myPriorityNode = children[i];
+							break;
+						case "application":
+							myAppNode = children[i];
 							break;
 					}
 				}
@@ -191,5 +201,33 @@
 		{
 			myPriorityNode = replaceTextNode(getNode(), myPriorityNode, "priority", priorityVal.toString());
 		}
+		
+		/**
+		 * The client application id for custom applications
+		 *
+		 * @availability Flash Player 7
+		 */
+		public function get appData():Object 
+		{
+			if (myAppNode == null) return null;
+			var aData:Object = {};
+			
+			for (var prop:String in myAppNode.attributes)
+			{
+				aData[prop] = myAppNode.attributes[prop];
+			}
+			return aData;
+		}
+		
+		public function set appData( appDataVal:Object ):void 
+		{
+			
+			if(appDataVal == null) return;
+			myAppNode = replaceTextNode(getNode(), myAppNode, "application", appDataVal.name);
+			for (var prop:String in appDataVal)
+				myAppNode.attributes[prop] = appDataVal[prop];
+			
+		}		
+
 	}
 }
